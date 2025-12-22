@@ -112,5 +112,23 @@ const base = {
   createPaymentOrder: mainUrl + 'payment/create-order',
   verifyPayment: mainUrl + 'payment/verify',
   
+  // Master Artist endpoints
+  addMasterArtist: mainUrl + 'admin/add-master-artist',
+  masterArtistList: mainUrl + 'admin/master-artist-list',
+  getMasterArtistById: mainUrl + 'admin/master-artist',
+  updateMasterArtist: mainUrl + 'admin/update-master-artist',
+  deleteMasterArtist: mainUrl + 'admin/delete-master-artist',
+  changeMasterArtistStatus: mainUrl + 'admin/change-master-artist-status',
+  activeMasterArtists: mainUrl + 'admin/active-master-artists',
+  
+  // Master Label endpoints
+  addMasterLabel: mainUrl + 'admin/add-master-label',
+  masterLabelList: mainUrl + 'admin/master-label-list',
+  getMasterLabelById: mainUrl + 'admin/master-label',
+  updateMasterLabel: mainUrl + 'admin/update-master-label',
+  deleteMasterLabel: mainUrl + 'admin/delete-master-label',
+  changeMasterLabelStatus: mainUrl + 'admin/change-master-label-status',
+  activeMasterLabels: mainUrl + 'admin/active-master-labels',
+  
 };
 export { base, domainUrl, imageServerUrl, USER_TYPE };

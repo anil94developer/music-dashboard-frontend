@@ -46,6 +46,8 @@ const DailyTrack = lazy(() => import("./Components/DailyTreads/DailyTrack"));
 const DailyStream = lazy(() => import("./Components/DailyTreads/DailyStream"));
 const Membership = lazy(() => import("./Components/Membership/Membership"));
 const UserPlan = lazy(() => import("./Components/UserPlan/UserPlan"));
+const MasterArtists = lazy(() => import("./Components/MasterArtists/MasterArtists"));
+const MasterLabels = lazy(() => import("./Components/MasterLabels/MasterLabels"));
 
 // Loading component
 const PageLoader = () => (
@@ -368,6 +370,8 @@ function App() {
         <Route path="/ReportUpload" element={<ProtectedRoute allowedRoles={["Admin"]}><ReportUpload /></ProtectedRoute>}></Route>
         <Route path="/Membership" element={<ProtectedRoute allowedRoles={["Admin"]}><Membership /></ProtectedRoute>}></Route>
         <Route path="/UserPlan" element={<ProtectedRoute allowedRoles={["Admin"]}><UserPlan /></ProtectedRoute>}></Route>
+        <Route path="/MasterArtists" element={<ProtectedRoute allowedRoles={["Admin"]}><MasterArtists /></ProtectedRoute>}></Route>
+        <Route path="/MasterLabels" element={<ProtectedRoute allowedRoles={["Admin"]}><MasterLabels /></ProtectedRoute>}></Route>
         <Route path="*" element={<Navigate to="/Dashboard" replace />}></Route>
     </Routes>
     </Suspense>

@@ -1,0 +1,190 @@
+/* Master Artists Styles - Same as Membership */
+.membership-container {
+  padding: 20px;
+}
+
+.card {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border: none;
+  border-radius: 8px;
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #dee2e6;
+  padding: 15px 20px;
+}
+
+.card-title {
+  margin: 0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.table {
+  margin-bottom: 0;
+}
+
+.table thead th {
+  background-color: #f8f9fa;
+  border-bottom: 2px solid #dee2e6;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+  color: #495057;
+}
+
+.table tbody tr:hover {
+  background-color: #f8f9fa;
+}
+
+.badge {
+  padding: 0.35em 0.65em;
+  font-size: 0.75em;
+  font-weight: 600;
+  border-radius: 0.25rem;
+}
+
+.badge-success {
+  background-color: #28a745;
+  color: white;
+}
+
+.badge-secondary {
+  background-color: #6c757d;
+  color: white;
+}
+
+.badge-info {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-group .btn {
+  margin-right: 5px;
+}
+
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+
+.modal.show {
+  display: block !important;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+  z-index: 1040;
+}
+
+.modal-dialog {
+  margin: 30px auto;
+  position: relative;
+  z-index: 1050;
+}
+
+.modal-content {
+  border-radius: 8px;
+  border: none;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.modal-header {
+  border-bottom: 1px solid #dee2e6;
+  padding: 20px;
+}
+
+.modal-body {
+  padding: 20px;
+}
+
+.modal-footer {
+  border-top: 1px solid #dee2e6;
+  padding: 15px 20px;
+}
+
+.form-group label {
+  font-weight: 500;
+  margin-bottom: 5px;
+  color: #495057;
+}
+
+.form-control {
+  border-radius: 4px;
+  border: 1px solid #ced4da;
+  padding: 8px 12px;
+  width: 100%;
+  display: block;
+  background-color: #fff !important;
+  color: #000000 !important;
+  font-size: 1rem;
+  line-height: 1.5;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.form-control:focus {
+  border-color: #80bdff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: 0;
+  background-color: #fff !important;
+  color: #000000 !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.form-control::placeholder {
+  color: #6c757d !important;
+  opacity: 1;
+  -webkit-text-fill-color: #6c757d !important;
+}
+
+/* Force text color for all input types in modal */
+.modal input[type="text"],
+.modal input[type="number"],
+.modal input[type="email"],
+.modal textarea,
+.modal select {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.modal input[type="text"]:focus,
+.modal input[type="number"]:focus,
+.modal input[type="email"]:focus,
+.modal textarea:focus,
+.modal select:focus {
+  color: #000000 !important;
+  background-color: #ffffff !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.modal input::placeholder,
+.modal textarea::placeholder {
+  color: #6c757d !important;
+  -webkit-text-fill-color: #6c757d !important;
+}
+
+.spinner-border {
+  width: 3rem;
+  height: 3rem;
+  border-width: 0.3em;
+}
+
+@media (max-width: 768px) {
+  .table-responsive {
+    overflow-x: auto;
+  }
+  
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .btn-group .btn {
+    margin-bottom: 5px;
+    margin-right: 0;
+  }
+}
+

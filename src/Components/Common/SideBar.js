@@ -214,6 +214,16 @@ export const SideBar = (props) => {
               </a>
             </li>
             <li className="nav-item">
+              <a className={`nav-link ${isActive('/MasterArtists') ? 'active' : ''}`} href="/MasterArtists">
+                <img className="img-fluid" title="Master Artists" src={require('../../assets/images/menu-icon4.png')} />Master Artists
+              </a>
+            </li>
+            <li className="nav-item">
+              <a className={`nav-link ${isActive('/MasterLabels') ? 'active' : ''}`} href="/MasterLabels">
+                <img className="img-fluid" title="Master Labels" src={require('../../assets/images/menu-icon4.png')} />Master Labels
+              </a>
+            </li>
+            <li className="nav-item">
               <a className="nav-link" onClick={() => downloadDatabase()}>
                 <img className="img-fluid" title="Dashboard" src={require('../../assets/images/menu-icon4.png')} />Download DB
               </a>
