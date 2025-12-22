@@ -1,0 +1,13 @@
+[
+  { "id": "1", "name": "iTunes", "logo":"apptune.png", "status": "active" },
+  { "id": "2", "name": "Amazon", "logo": "Deezer.png", "status": "active" },
+  { "id": "3", "name": "Facebook", "logo": "fb.png", "status": "active" },
+  { "id": "4", "name": "gaana", "logo": "gana.png", "status": "active" },
+  { "id": "5", "name": "instagram", "logo": "instagram.png", "status": "active" },
+  { "id": "6", "name": "jiosaavn", "logo": "jiosvaan.png", "status": "active" },
+  { "id": "7", "name": "Soptify", "logo": "soptify.png", "status": "active" }, 
+  { "id": "9", "name": "Youtube", "logo": "youtube.png", "status": "active" },
+  { "id": "10", "name": "CRBT", "logo": "call.jpg", "status": "active" }
+
+
+]

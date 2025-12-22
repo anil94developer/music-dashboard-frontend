@@ -1,0 +1,535 @@
+/* Payment Operations Page - Modern Design */
+.payment-operations-page {
+  padding: 20px;
+}
+
+/* Page Header */
+.payment-page-header {
+  margin-bottom: 30px;
+  padding-bottom: 20px;
+  border-bottom: 2px solid #e0e0e0;
+}
+
+.payment-page-header h1 {
+  color: #333333;
+  font-size: 32px;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.payment-page-header h1 i {
+  color: #667eea;
+  font-size: 36px;
+}
+
+.payment-page-subtitle {
+  color: #666666;
+  font-size: 16px;
+  margin: 0;
+  font-weight: 400;
+}
+
+/* Card Styles */
+.payment-status-card,
+.wallet-card,
+.transaction-history-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  margin-bottom: 20px;
+  transition: all 0.3s ease;
+}
+
+.payment-status-card:hover,
+.wallet-card:hover,
+.transaction-history-card:hover {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+}
+
+/* Card Header Gradient */
+.card-header-gradient {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #ffffff;
+  padding: 20px 25px;
+  border-bottom: none;
+}
+
+.card-header-gradient h2 {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.card-header-gradient h2 i {
+  font-size: 24px;
+}
+
+/* Card Body */
+.card-body-payment,
+.card-body-wallet,
+.card-body-transactions {
+  padding: 25px;
+  color: #333333;
+}
+
+/* Balance Info Section */
+.balance-info-section {
+  margin-bottom: 25px;
+}
+
+.balance-amount-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  margin-bottom: 20px;
+}
+
+.balance-label {
+  font-size: 14px;
+  color: #666666;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 8px;
+}
+
+.balance-value {
+  font-size: 36px;
+  font-weight: 700;
+  color: #1e3c72;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.balance-description {
+  color: #666666;
+  font-size: 14px;
+  line-height: 1.6;
+  margin-bottom: 15px;
+}
+
+.faq-link-modern {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #667eea;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.faq-link-modern:hover {
+  color: #764ba2;
+  text-decoration: underline;
+}
+
+.faq-link-modern i {
+  font-size: 16px;
+}
+
+/* Payment Status Section */
+.payment-status-section {
+  margin-top: 25px;
+  padding-top: 25px;
+  border-top: 1px solid #e0e0e0;
+}
+
+.status-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+/* Modern Status Steps */
+.status-steps-modern {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 25px 0;
+  position: relative;
+}
+
+.status-steps-modern::before {
+  content: '';
+  position: absolute;
+  top: 25px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #e0e0e0;
+  z-index: 0;
+}
+
+.status-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.step-circle {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: #ffffff;
+  border: 3px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  color: #999999;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.status-step.active .step-circle {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-color: #764ba2;
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+  transform: scale(1.1);
+}
+
+.step-label {
+  font-size: 13px;
+  color: #666666;
+  font-weight: 500;
+  text-align: center;
+}
+
+.status-step.active .step-label {
+  color: #333333;
+  font-weight: 600;
+}
+
+.payment-details-info {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+}
+
+.payment-details-info p {
+  color: #333333;
+  font-size: 14px;
+  line-height: 1.6;
+  margin: 0 0 10px 0;
+}
+
+.payment-details-info p:last-child {
+  margin-bottom: 0;
+}
+
+.payment-details-info p i {
+  color: #667eea;
+  margin-right: 8px;
+}
+
+.payment-details-info strong {
+  color: #1e3c72;
+  font-weight: 600;
+}
+
+.processing-time {
+  color: #666666 !important;
+  font-style: italic;
+}
+
+/* Wallet Card */
+.wallet-balance-display {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 25px;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.balance-icon-wrapper {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+}
+
+.balance-icon-wrapper i {
+  font-size: 36px;
+  color: #ffffff;
+}
+
+.balance-details {
+  flex: 1;
+}
+
+.balance-details h3 {
+  font-size: 16px;
+  color: #666666;
+  font-weight: 500;
+  margin: 0 0 8px 0;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.balance-amount {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1e3c72;
+  margin: 0 0 5px 0;
+}
+
+.balance-note {
+  font-size: 13px;
+  color: #999999;
+  margin: 0;
+}
+
+/* Withdrawal Action Section */
+.withdrawal-action-section {
+  text-align: center;
+}
+
+.btn-request-withdrawal {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border: none;
+  color: #ffffff;
+  font-weight: 600;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 6px 18px rgba(118, 75, 162, 0.4);
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  justify-content: center;
+}
+
+.btn-request-withdrawal:hover {
+  background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(118, 75, 162, 0.5);
+}
+
+.btn-request-withdrawal i {
+  font-size: 18px;
+}
+
+.withdrawal-info {
+  margin-top: 15px;
+  color: #666666;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.withdrawal-info i {
+  color: #667eea;
+}
+
+/* Insufficient Balance Section */
+.insufficient-balance-section {
+  text-align: center;
+}
+
+.insufficient-balance-alert {
+  background: #fff3cd;
+  border: 1px solid #ffc107;
+  border-radius: 8px;
+  padding: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #856404;
+}
+
+.insufficient-balance-alert i {
+  font-size: 20px;
+  color: #ffc107;
+}
+
+.insufficient-balance-alert p {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+/* Transaction History Card */
+.table-container-transactions {
+  margin-top: 10px;
+}
+
+.table-wrapper-transactions {
+  overflow-x: auto;
+  border-radius: 8px;
+  border: 1px solid #e0e0e0;
+}
+
+.modern-table-transactions {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffffff;
+}
+
+.modern-table-transactions thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.modern-table-transactions thead th {
+  color: #ffffff;
+  font-weight: 600;
+  padding: 15px;
+  text-align: left;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.modern-table-transactions tbody td {
+  padding: 15px;
+  border-bottom: 1px solid #e0e0e0;
+  color: #333333;
+  font-size: 14px;
+}
+
+.modern-table-transactions tbody tr:hover {
+  background: #f8f9fa;
+}
+
+.modern-table-transactions tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.amount-cell {
+  font-weight: 600;
+  color: #1e3c72;
+}
+
+.date-cell {
+  color: #666666;
+}
+
+/* Status Badge */
+.status-badge {
+  display: inline-block;
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-pending {
+  background: #fff3cd;
+  color: #856404;
+  border: 1px solid #ffc107;
+}
+
+.status-active,
+.status-processing {
+  background: #cfe2ff;
+  color: #084298;
+  border: 1px solid #0d6efd;
+}
+
+.status-complete,
+.status-completed {
+  background: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #198754;
+}
+
+.status-rejected,
+.status-failed {
+  background: #f8d7da;
+  color: #842029;
+  border: 1px solid #dc3545;
+}
+
+/* No Transactions Message */
+.no-transactions-message {
+  text-align: center;
+  padding: 60px 20px;
+  color: #999999;
+}
+
+.no-transactions-message i {
+  font-size: 64px;
+  color: #e0e0e0;
+  margin-bottom: 20px;
+}
+
+.no-transactions-message h3 {
+  color: #666666;
+  font-size: 20px;
+  margin: 0 0 10px 0;
+}
+
+.no-transactions-message p {
+  color: #999999;
+  font-size: 14px;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .payment-operations-page {
+    padding: 15px;
+  }
+
+  .payment-page-header h1 {
+    font-size: 24px;
+}
+
+  .wallet-balance-display {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .status-steps-modern {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .status-steps-modern::before {
+    display: none;
+  }
+
+  .status-step {
+    width: 100%;
+  }
+
+  .modern-table-transactions {
+    font-size: 12px;
+  }
+
+  .modern-table-transactions thead th,
+  .modern-table-transactions tbody td {
+    padding: 10px 8px;
+  }
+}

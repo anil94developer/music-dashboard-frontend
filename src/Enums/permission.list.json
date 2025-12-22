@@ -1,0 +1,69 @@
+[
+    {
+        "mainMenuName": "Dashboard",
+        "status": false,
+        "submenu": []
+    },
+    {
+        "mainMenuName": "One Release",
+        "status": false,
+        "submenu": []
+    },
+    {
+        "mainMenuName": "Multiple Release",
+        "status": false,
+        "submenu": []
+    },
+    {
+        "mainMenuName": "Catalog",
+        "status": false,
+        "submenu": [
+            {
+                "subMenuName": "All releases",
+                "status": false,
+                "submenu": []
+            },
+            {
+                "subMenuName": "All drafts",
+                "status": false,
+                "submenu": []
+            },
+            {
+                "subMenuName": "All Tracks",
+                "status": false,
+                "submenu": []
+            }
+        ]
+    },
+    {
+        "mainMenuName": "Daily Trends",
+        "status": true,
+        "submenu": []
+    },
+    {
+        "mainMenuName": "Financial",
+        "status": false,
+        "submenu": [
+            {
+                "subMenuName": "Payment Operations",
+                "status": false,
+                "submenu": []
+            },
+            {
+                "subMenuName": "Financial Report",
+                "status": false,
+                "submenu": []
+            }
+        ]
+    },
+    {
+        "mainMenuName": "User Access",
+        "status": false,
+        "submenu": []
+    },
+    {
+        "mainMenuName": "Support",
+        "status": false,
+        "submenu": []
+    }
+]

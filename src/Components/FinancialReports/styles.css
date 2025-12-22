@@ -1,0 +1,110 @@
+.tabs {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.tab {
+  flex: 1;
+  padding: 10px 20px;
+  background-color: #000;
+  text-align: center;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #555;
+  border: #fff 2px  solid;
+}
+
+.tab.active {
+  background-color: #007bff;
+  color: #fff;
+  border-radius: 4px 4px 0 0;
+}
+/* .reports-container {
+    font-family: Arial, sans-serif;
+    background-color: #000;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 900px;
+    margin: 20px auto;
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+  }
+  
+  .tabs {
+    display: flex;
+    margin-bottom: 20px;
+  }
+  
+  .tab {
+    flex: 1;
+    padding: 10px 20px;
+    background-color: #000;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: #555;
+    border: #fff 2px  solid;
+  }
+  
+  .tab.active {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 4px 4px 0 0;
+  }
+  
+  .reports-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  .reports-table th,
+  .reports-table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .reports-table th {
+    background-color: #000;
+    font-weight: bold;
+  }
+  
+  .action-button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .action-button:hover {
+    color: #0056b3;
+  }
+  
+  .pagination {
+    display: flex;
+    justify-content: center;
+    gap: 5px;
+  }
+  
+  .page {
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    background-color: #000;
+    cursor: pointer;
+  }
+  
+  .page.active {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+  }
+  
+  .page:hover {
+    background-color: #e6e6e6;
+  } */

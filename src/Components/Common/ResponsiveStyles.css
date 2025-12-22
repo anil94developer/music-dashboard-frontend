@@ -1,0 +1,254 @@
+/* Responsive Styles for All Screens */
+
+/* Mobile First Approach */
+@media (max-width: 576px) {
+  .sidebar-main {
+    width: 100%;
+    position: fixed;
+    left: -100%;
+    transition: left 0.3s ease;
+    z-index: 1000;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .sidebar-main.show {
+    left: 0;
+  }
+
+  .main-cotent {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .navbar {
+    padding: 10px 15px;
+  }
+
+  .user-name {
+    font-size: 12px;
+    display: none;
+  }
+
+  .dash-detail {
+    margin-bottom: 15px;
+    padding: 15px;
+  }
+
+  .dash-detail .inner h3 {
+    font-size: 24px;
+  }
+
+  .dash-detail .icon img {
+    width: 40px;
+    height: 40px;
+  }
+
+  .nav-link {
+    padding: 10px 15px;
+    font-size: 14px;
+  }
+
+  .content-main {
+    padding: 15px;
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .table th,
+  .table td {
+    padding: 8px 4px;
+  }
+
+  .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Tablet Styles */
+@media (min-width: 577px) and (max-width: 768px) {
+  .sidebar-main {
+    width: 250px;
+  }
+
+  .main-cotent {
+    margin-left: 250px;
+  }
+
+  .dash-detail {
+    margin-bottom: 20px;
+  }
+
+  .dash-detail .inner h3 {
+    font-size: 28px;
+  }
+
+  .nav-link {
+    padding: 12px 20px;
+  }
+}
+
+/* Desktop Styles */
+@media (min-width: 769px) {
+  .sidebar-main {
+    width: 280px;
+  }
+
+  .main-cotent {
+    margin-left: 280px;
+  }
+}
+
+/* Common Responsive Utilities */
+@media (max-width: 768px) {
+  .hidden-xs {
+    display: none !important;
+  }
+
+  .text-center-mobile {
+    text-align: center;
+  }
+
+  .d-flex-mobile-column {
+    flex-direction: column;
+  }
+
+  .w-100-mobile {
+    width: 100% !important;
+  }
+}
+
+/* Form Responsive Styles */
+@media (max-width: 576px) {
+  .form-control {
+    font-size: 14px;
+    padding: 8px 12px;
+  }
+
+  .form-group {
+    margin-bottom: 15px;
+  }
+
+  .modal-dialog {
+    margin: 10px;
+    max-width: calc(100% - 20px);
+  }
+}
+
+/* Table Responsive Styles */
+@media (max-width: 768px) {
+  .table-responsive {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .table {
+    min-width: 600px;
+  }
+}
+
+/* Card Responsive Styles */
+@media (max-width: 576px) {
+  .card {
+    margin-bottom: 15px;
+  }
+
+  .card-body {
+    padding: 15px;
+  }
+}
+
+/* Button Group Responsive */
+@media (max-width: 576px) {
+  .btn-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .btn-group .btn {
+    width: 100%;
+    margin-bottom: 5px;
+  }
+}
+
+/* Navigation Responsive */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .dropdown-menu {
+    position: static !important;
+    float: none;
+    width: 100%;
+    margin-top: 0;
+  }
+}
+
+/* Dashboard Cards Responsive */
+@media (max-width: 1200px) {
+  .col-lg-3 {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+}
+
+@media (max-width: 768px) {
+  .col-lg-3,
+  .col-md-6 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Upload Progress Responsive */
+@media (max-width: 576px) {
+  .upload-progress-container {
+    min-width: 90%;
+    padding: 20px;
+  }
+
+  .upload-message {
+    font-size: 14px;
+  }
+}
+
+/* Sidebar Toggle Button */
+.navbar-toggler {
+  border: none;
+  padding: 4px 8px;
+  background: transparent;
+  color: #fff;
+}
+
+.navbar-toggler:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+/* Smooth Transitions */
+* {
+  transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+
+/* Print Styles */
+@media print {
+  .sidebar-main,
+  .navbar,
+  .btn,
+  .no-print {
+    display: none !important;
+  }
+
+  .main-cotent {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
