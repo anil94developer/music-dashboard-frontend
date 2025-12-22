@@ -1,12 +1,13 @@
+// Get API URL from environment variables, fallback to default
+const domainUrl = process.env.REACT_APP_API_URL || 'http://localhost:8002/';
 // const domainUrl = 'https://tuneplusbackend.onrender.com/';
-const domainUrl = 'http://localhost:8002/';
 // const domainUrl = 'http://192.168.1.18:8001/';
 // const endpoint = "https://api.ridd.in/api/"
 
 
 const mainUrl = domainUrl
-const imageServerUrl = domainUrl + '';
-const USER_TYPE = "User"
+const imageServerUrl = process.env.REACT_APP_IMAGE_SERVER_URL || domainUrl + '';
+const USER_TYPE = process.env.REACT_APP_USER_TYPE || "User"
 const base = {
   login: mainUrl + 'auth/login',
   signUp: mainUrl + 'auth/signup',
