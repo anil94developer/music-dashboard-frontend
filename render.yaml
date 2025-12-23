@@ -8,3 +8,6 @@ services:
         source: /*
         destination: /index.html
     pullRequestPreviewEnabled: false
+    envVars:
+      - key: NODE_ENV
+        value: production
