@@ -36,6 +36,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "postbuild": "node -e \"const fs = require('fs'); if (fs.existsSync('public/_redirects')) { fs.copyFileSync('public/_redirects', 'build/_redirects'); console.log('_redirects copied to build folder'); }\"",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
