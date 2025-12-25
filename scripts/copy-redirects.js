@@ -70,6 +70,18 @@ if (fs.existsSync(htaccessSource)) {
   }
 }
 
+// Copy static.json if it exists (for Render alternative config)
+const staticJsonSource = path.join(__dirname, '../public/static.json');
+const staticJsonDest = path.join(__dirname, '../build/static.json');
+if (fs.existsSync(staticJsonSource)) {
+  try {
+    fs.copyFileSync(staticJsonSource, staticJsonDest);
+    console.log('✓ static.json file copied to build folder');
+  } catch (error) {
+    console.log('⚠ Could not copy static.json:', error.message);
+  }
+}
+
 console.log('✅ Redirect files setup complete!');
 // Always exit successfully to not break the build
 process.exit(0);
