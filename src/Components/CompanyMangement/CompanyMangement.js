@@ -535,7 +535,7 @@ const CompanyManagement = (props) => {
               <div className="track-heading d-flex flex-wrap align-items-center justify-content-between">
                 <h2>User Management</h2>
                 <div className="add-track-btn">
-                  <a href="AddCompany"> <button className="btn btn-primary ">Add Master Account</button></a>
+                  <a href="AddCompany"> <button className="btn btn-primary ">Add Label Account</button></a>
                 </div>
               </div>
             </div>
@@ -615,6 +615,13 @@ const CompanyManagement = (props) => {
                           </td>
                           <td className="">
                             <div className="company-management-actions" style={{ gap: '8px', display: 'flex', flexWrap: 'wrap' }}>
+                              <button
+                                className="btn btn-sm btn-primary"
+                                onClick={() => navigate("/ClientDetails", { state: { userId: item._id } })}
+                                title="View Client Details"
+                              >
+                                <i className="fa fa-user"></i>
+                              </button>
                               <button
                                 key={`${item._id}-${item.status}`}
                                 className={`btn btn-sm ${item.status === "DeActive" ? "btn-success" : "btn-warning"}`}

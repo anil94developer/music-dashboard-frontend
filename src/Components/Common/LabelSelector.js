@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { base } from '../../Constants/Data.constant';
 import { getData, postData } from '../../Services/Ops';
 import { showSuccess, showError } from '../../Utils/Notification';
+import { useUserProfile } from '../../Context/UserProfileContext';
 
 export default function LabelSelector(props) {
   const { selectedLabel = '', setSelectedLabel } = props;
@@ -10,6 +11,9 @@ export default function LabelSelector(props) {
   const [showModal, setShowModal] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
   const [newLabelName, setNewLabelName] = useState("");
+  const { userProfile } = useUserProfile();
+  const allowedAccountLabels = Number(userProfile?.activeMembership?.noOfLabels ?? userProfile?.noOfLabels ?? 0);
+  const isAccountLabelLimitReached = allowedAccountLabels > 0 && labelList.length >= allowedAccountLabels;
 
   // Fetch label list once on component mount
   useEffect(() => {
@@ -38,6 +42,10 @@ export default function LabelSelector(props) {
   };
 
   const addNewLabel = async () => {
+    if (isAccountLabelLimitReached) {
+      showError(`Your plan allows up to ${allowedAccountLabels} label${allowedAccountLabels > 1 ? 's' : ''} in your account`, "Limit Reached");
+      return;
+    }
     if (!newLabelName.trim()) {
       showError("Please enter label name", "Validation Error");
       return;
@@ -160,13 +168,25 @@ export default function LabelSelector(props) {
                       type="button" 
                       className="btn btn-outline-primary add-new-label-btn"
                       onClick={() => {
+                        if (isAccountLabelLimitReached) {
+                          showError(`Your plan allows up to ${allowedAccountLabels} label${allowedAccountLabels > 1 ? 's' : ''} in your account`, "Limit Reached");
+                          return;
+                        }
                         setShowAddForm(true);
                         setQuery("");
                       }}
+                      disabled={isAccountLabelLimitReached}
                     >
                       <i className="fa fa-plus"></i> Add New Label
                     </button>
                   </div>
+
+                  {/* Plan limit note */}
+                  {isAccountLabelLimitReached && (
+                    <div className="alert alert-warning mt-2" role="alert">
+                      Label limit reached for your plan ({allowedAccountLabels}). You can still select an existing label.
+                    </div>
+                  )}
 
                   {/* Search Results or Add Form */}
                   {query && !showAddForm && (
@@ -284,4 +304,3 @@ export default function LabelSelector(props) {
     </div>
   );
 }
-

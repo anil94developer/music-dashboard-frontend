@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { Nav } from '../Common/Nav'
-import Papa from 'papaparse'
+const Papa = window.Papa;
 import { getData, postData, postDataContent } from '../../Services/Ops';
 import { base } from '../../Constants/Data.constant';
 import Swal from 'sweetalert2';
@@ -273,4 +273,3 @@ export default function FinancialReport() {
 
     )
 }
-

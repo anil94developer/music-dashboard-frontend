@@ -30,6 +30,10 @@ const getMainContentClass = () => {
   return "main-cotent";
 };
 
+const steps = ['step1','step2','step3','step4','step5','step6'];
+const currentIndex = Math.max(0, steps.indexOf(step));
+const progressPercent = ((currentIndex + 1) / steps.length) * 100;
+
 return (
 <div>
   <SideBar/>
@@ -41,65 +45,88 @@ return (
       </div>
       <section className="steps-main">
         <div className="step-tab-container">
-          <div className="step-tab">
+          <div className="step-tab" role="tablist" aria-label="Release creation steps">
             <button 
               type="button"
               className={`tab ${step === 'step1' ? 'active' : ''}`} 
+              role="tab"
+              aria-selected={step === 'step1'}
+              title="Release Information"
               onClick={(e) => {
                 e.preventDefault();
                 setStep('step1');
               }}
             >
               <span className="tab-number">1</span>
+              <span className="tab-icon fa fa-info-circle" aria-hidden="true"></span>
               <span className="tab-text">Release Information</span>
             </button>
             <button 
               type="button"
               className={`tab ${step === 'step2' ? 'active' : ''}`} 
+              role="tab"
+              aria-selected={step === 'step2'}
+              title="Upload"
               onClick={(e) => {
                 e.preventDefault();
                 setStep('step2');
               }}
             >
               <span className="tab-number">2</span>
+              <span className="tab-icon fa fa-upload" aria-hidden="true"></span>
               <span className="tab-text">Upload</span>
             </button>
             <button 
               type="button"
               className={`tab ${step === 'step3' ? 'active' : ''}`} 
+              role="tab"
+              aria-selected={step === 'step3'}
+              title="Tracks"
               onClick={(e) => {
                 e.preventDefault();
                 setStep('step3');
               }}
             >
               <span className="tab-number">3</span>
+              <span className="tab-icon fa fa-music" aria-hidden="true"></span>
               <span className="tab-text">Tracks</span>
             </button>
             <button 
               type="button"
               className={`tab ${step === 'step4' ? 'active' : ''}`} 
+              role="tab"
+              aria-selected={step === 'step4'}
+              title="Store"
               onClick={(e) => {
                 e.preventDefault();
                 setStep('step4');
               }}
             >
               <span className="tab-number">4</span>
+              <span className="tab-icon fa fa-shopping-cart" aria-hidden="true"></span>
               <span className="tab-text">Store</span>
             </button>
             <button 
               type="button"
               className={`tab ${step === 'step5' ? 'active' : ''}`} 
+              role="tab"
+              aria-selected={step === 'step5'}
+              title="Release Date"
               onClick={(e) => {
                 e.preventDefault();
                 setStep('step5');
               }}
             >
               <span className="tab-number">5</span>
+              <span className="tab-icon fa fa-calendar" aria-hidden="true"></span>
               <span className="tab-text">Release Date</span>
             </button>
             <button 
               type="button"
               className={`tab ${step === 'step6' ? 'active' : ''}`} 
+              role="tab"
+              aria-selected={step === 'step6'}
+              title="Submission"
               onClick={(e) => {
                 e.preventDefault();
                 e.stopPropagation();
@@ -107,8 +134,12 @@ return (
               }}
             >
               <span className="tab-number">6</span>
+              <span className="tab-icon fa fa-paper-plane" aria-hidden="true"></span>
               <span className="tab-text">Submission</span>
             </button>
+          </div>
+          <div className="step-progress" aria-hidden="true">
+            <div className="step-progress-bar" style={{ width: `${progressPercent}%` }}></div>
           </div>
         </div>
         {isLoading && (

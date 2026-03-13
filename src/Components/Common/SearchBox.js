@@ -7,7 +7,7 @@ import { useUserProfile } from '../../Context/UserProfileContext';
 import { showSuccess, showError } from '../../Utils/Notification';
 
 export default function SearchInput(props) {
-  const { artistData = [], setSelectData } = props;
+  const { artistData = [], setSelectData, maxSelected } = props;
   const [query, setQuery] = useState("");
   const { userPermission, userProfile } = useUserProfile()
   const [artistList, setArtistList] = useState([]);
@@ -15,8 +15,11 @@ export default function SearchInput(props) {
   const [itunesLinkId, setItunesLinkId] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [showAddForm, setShowAddForm] = useState(false);
+  const [highlightedIndex, setHighlightedIndex] = useState(-1);
 
   const [selectedArtists, setSelectedArtists] = useState(Array.isArray(artistData) ? artistData : []);
+  const allowedAccountArtists = Number(userProfile?.activeMembership?.noOfArtists ?? userProfile?.noOfArtists ?? 0);
+  const isAccountArtistLimitReached = allowedAccountArtists > 0 && artistList.length >= allowedAccountArtists;
 
   // Fetch artist list once on component mount
   useEffect(() => {
@@ -33,6 +36,11 @@ export default function SearchInput(props) {
   const addArtist = (artist) => {
     // Prevent duplicate artist entries
     if (!selectedArtists.some(item => item._id === artist._id)) {
+      // Enforce selection limit if provided
+      if (typeof maxSelected === 'number' && maxSelected > 0 && selectedArtists.length >= maxSelected) {
+        showError(`Your plan allows up to ${maxSelected} primary artist${maxSelected > 1 ? 's' : ''}`, "Limit Reached");
+        return;
+      }
       const updatedArtists = [...selectedArtists, artist];
       console.log("updatedArtists-----", updatedArtists)
       setSelectedArtists(updatedArtists);
@@ -57,6 +65,10 @@ export default function SearchInput(props) {
   const addHandleSubmit = async () => {
     if (!query.trim()) {
       showError("Please enter artist name", "Validation Error");
+      return;
+    }
+    if (isAccountArtistLimitReached) {
+      showError(`Your plan allows up to ${allowedAccountArtists} artist${allowedAccountArtists > 1 ? 's' : ''} in your account`, "Limit Reached");
       return;
     }
 
@@ -183,15 +195,42 @@ export default function SearchInput(props) {
                   <div className="artist-search-section">
                     <div className="form-group">
                       <label>Search Artist</label>
-                      <div className="search-input-wrapper">
+                      <div className="search-input-wrapper" style={{paddingHorizontal:10}}>
                         <input 
+                          style={{marginLeft:12}}
                           className="form-control artist-search-input" 
                           type="text" 
                           value={query} 
                           onChange={(e) => {
                             setQuery(e.target.value);
                             setShowAddForm(false);
+                            setHighlightedIndex(-1);
                           }} 
+                          onKeyDown={(e) => {
+                            if (e.key === 'ArrowDown') {
+                              e.preventDefault();
+                              if (filteredArtists.length > 0) {
+                                setHighlightedIndex((prev) => (prev + 1) % filteredArtists.length);
+                              }
+                            }
+                            if (e.key === 'ArrowUp') {
+                              e.preventDefault();
+                              if (filteredArtists.length > 0) {
+                                setHighlightedIndex((prev) => (prev - 1 + filteredArtists.length) % filteredArtists.length);
+                              }
+                            }
+                            if (e.key === 'Enter') {
+                              if (!showAddForm) {
+                                if (filteredArtists.length > 0 && highlightedIndex >= 0) {
+                                  addArtist(filteredArtists[highlightedIndex]);
+                                  setQuery("");
+                                  setHighlightedIndex(-1);
+                                } else if (filteredArtists.length === 0 && query.trim()) {
+                                  setShowAddForm(true);
+                                }
+                              }
+                            }
+                          }}
                           placeholder="Type to search for an artist..." 
                           autoFocus
                         />
@@ -202,9 +241,18 @@ export default function SearchInput(props) {
                       type="button" 
                       className="btn btn-outline-primary add-new-artist-btn"
                       onClick={() => {
+                        if (isAccountArtistLimitReached) {
+                          showError(`Your plan allows up to ${allowedAccountArtists} artist${allowedAccountArtists > 1 ? 's' : ''} in your account`, "Limit Reached");
+                          return;
+                        }
+                        if (typeof maxSelected === 'number' && maxSelected > 0 && selectedArtists.length >= maxSelected) {
+                          showError(`Your plan allows up to ${maxSelected} primary artist${maxSelected > 1 ? 's' : ''}`, "Limit Reached");
+                          return;
+                        }
                         setShowAddForm(true);
                         setQuery("");
                       }}
+                      disabled={isAccountArtistLimitReached}
                     >
                       <i className="fa fa-plus"></i> Add New Artist
                     </button>
@@ -216,13 +264,15 @@ export default function SearchInput(props) {
                       {filteredArtists.length > 0 ? (
                         <div className="artist-results-list">
                           <h5 className="results-title">Search Results</h5>
-                          {filteredArtists.map((artist) => (
+                          {filteredArtists.map((artist, idx) => (
                             <div 
                               key={artist._id} 
-                              className="artist-result-item"
+                              className={`artist-result-item ${idx === highlightedIndex ? 'active' : ''}`}
+                              onMouseEnter={() => setHighlightedIndex(idx)}
                               onClick={() => {
                                 addArtist(artist);
                                 setQuery("");
+                                setHighlightedIndex(-1);
                               }}
                             >
                               <div className="artist-result-info">
@@ -247,7 +297,16 @@ export default function SearchInput(props) {
                         </div>
                       ) : query.length > 0 && (
                         <div className="no-results-message">
-                          <p>No artist found. Click "Add New Artist" to create one.</p>
+                          <p>No artist found.</p>
+                          <button 
+                            type="button" 
+                            className="btn btn-outline-primary add-new-artist-btn"
+                            onClick={() => {
+                              setShowAddForm(true);
+                            }}
+                          >
+                            <i className="fa fa-plus"></i> Add “{query}”
+                          </button>
                         </div>
                       )}
                     </div>

@@ -213,7 +213,13 @@ export default function STEP1(props) {
         <div className="col-lg-3 col-md-6 col-12">
           <div className="form-group">
             <label htmlFor="primaryArtist">Primary artist *</label>
-            <SearchInput artistData={primaryArtist} setSelectData={setPrimaryArtist} />
+            <SearchInput 
+              artistData={primaryArtist} 
+              setSelectData={setPrimaryArtist} 
+              maxSelected={
+                (userProfile?.activeMembership?.noOfArtists ?? userProfile?.noOfArtists ?? 0) || undefined
+              }
+            />
             {props.errors?.['step1.primaryArtist'] ? (
               <span className="text-danger">{props.errors['step1.primaryArtist']}</span>
               ):
