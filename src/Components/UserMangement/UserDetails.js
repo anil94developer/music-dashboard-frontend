@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { Nav } from '../Common/Nav'
-const Papa = window.Papa;
 import { getData, postData } from '../../Services/Ops';
 import { base } from '../../Constants/Data.constant';
 import Swal from 'sweetalert2';
+
+const Papa = window.Papa;
+
 export default function UserDetails() {
 
   const location = useLocation();

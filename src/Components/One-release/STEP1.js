@@ -7,8 +7,10 @@ import GENRES from '../../Enums/genres.json';
 import { images } from '../../assets/images';
 import { base, domainUrl } from '../../Constants/Data.constant';
 import Loader from '../Common/Loader';
-import {encode as btoa} from 'base-64'
 import { useUserProfile } from '../../Context/UserProfileContext';
+
+// Use native btoa (available in browser) for Basic auth encoding
+const btoa = (str) => window.btoa(unescape(encodeURIComponent(str)));
 export default function STEP1(props) {
   const { setStep, releaseData, validateFields, setErrors } = props;
   const { userPermission, userProfile } = useUserProfile()

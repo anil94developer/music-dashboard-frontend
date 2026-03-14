@@ -1,3 +1,22 @@
+/* Global autofill fix: always show black text */
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill {
+  -webkit-text-fill-color: #000000 !important;
+  caret-color: #000000 !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+  transition: background-color 9999s ease-in-out 0s !important;
+}
+
+/* Ensure Bootstrap form controls keep black text on autofill */
+.form-control:-webkit-autofill,
+input.form-control:-webkit-autofill,
+textarea.form-control:-webkit-autofill {
+  -webkit-text-fill-color: #000000 !important;
+  caret-color: #000000 !important;
+  box-shadow: 0 0 0px 1000px #ffffff inset !important;
+}
+
 /* Admin Role Specific Styles - Attractive Professional Theme */
 .admin-sidebar {
   background: linear-gradient(180deg, #1e3c72 0%, #2a5298 50%, #7e8ba3 100%);

@@ -114,7 +114,9 @@ function AddCompany(props) {
                                     {/* Company Name */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label for="exampleInputEmail1"> Company Name</label>
+                                            <label for="exampleInputEmail1">
+                                                Company Name <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -129,7 +131,9 @@ function AddCompany(props) {
                                     {/* Main Email */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Main Email Address</label>
+                                            <label>
+                                                Main Email Address <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="email"
                                                 className="form-control"
@@ -144,7 +148,9 @@ function AddCompany(props) {
                                     {/* Royalties Email */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Royalties Email Address</label>
+                                            <label>
+                                                Royalties Email Address <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="royaltiesEmail"
                                                 className="form-control"
@@ -160,7 +166,9 @@ function AddCompany(props) {
                                     {/* First Name */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >First Name</label>
+                                            <label>
+                                                First Name <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -175,7 +183,9 @@ function AddCompany(props) {
                                     {/* Last Name */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Last Name</label>
+                                            <label>
+                                                Last Name <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -190,7 +200,9 @@ function AddCompany(props) {
                                     {/* Phone Number */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Phone Number</label>
+                                            <label>
+                                                Phone Number <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -230,7 +242,9 @@ function AddCompany(props) {
                                     {/* No Of Labels - Auto-filled from membership */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label>No Of Labels</label>
+                                            <label>
+                                                No Of Labels <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="number"
                                                 className="form-control"
@@ -247,7 +261,9 @@ function AddCompany(props) {
                                     {/* Pan Card Number */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Pan Card Number</label>
+                                            <label>
+                                                Pan Card Number <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -261,7 +277,9 @@ function AddCompany(props) {
                                     {/* Aadhar Card  number*/}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Aadhar Card</label>
+                                            <label>
+                                                Aadhar Card <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -277,7 +295,9 @@ function AddCompany(props) {
                                     {/* Postal Address */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Postal Address</label>
+                                            <label>
+                                                Postal Address <span className="required-star">*</span>
+                                            </label>
                                             <textarea
                                                 className="form-control"
                                                 placeholder="Enter postal address"
@@ -291,7 +311,9 @@ function AddCompany(props) {
                                     {/* Postal Code */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >Postal Code</label>
+                                            <label>
+                                                Postal Code <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"
@@ -306,7 +328,9 @@ function AddCompany(props) {
                                     {/* City */}
                                     <div className="col-lg-3 col-md-4 col-12">
                                         <div className="form-group">
-                                            <label >City</label>
+                                            <label>
+                                                City <span className="required-star">*</span>
+                                            </label>
                                             <input
                                                 type="text"
                                                 className="form-control"

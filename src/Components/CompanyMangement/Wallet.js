@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation } from 'react-router-dom';
 import { Nav } from '../Common/Nav'
-const Papa = window.Papa;
 import { getData, postData, postDataContent } from '../../Services/Ops';
 import { base } from '../../Constants/Data.constant';
 import Swal from 'sweetalert2';
 import { SideBar } from '../Common/SideBar';
+
+const Papa = window.Papa;
+
 export default function Wallet() {
 
   // Add these state variables at the top of your component
