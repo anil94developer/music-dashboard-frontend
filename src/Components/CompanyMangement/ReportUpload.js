@@ -11,37 +11,249 @@ import { Button } from 'bootstrap';
 import { showSuccess, showError, showUploadProgress } from '../../Utils/Notification';
 import UploadProgress from '../Common/UploadProgress';
 import axios from 'axios';
-export default function ReportUpload() {
 
+// Modern UI Styles
+const modernStyles = {
+    container: {
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        minHeight: '100vh',
+        padding: '20px'
+    },
+    card: {
+        background: '#ffffff',
+        borderRadius: '16px',
+        boxShadow: '0 10px 40px rgba(0,0,0,0.1)',
+        padding: '30px',
+        marginBottom: '30px',
+        transition: 'transform 0.3s ease, box-shadow 0.3s ease'
+    },
+    cardHover: {
+        transform: 'translateY(-5px)',
+        boxShadow: '0 15px 50px rgba(0,0,0,0.15)'
+    },
+    header: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        marginBottom: '25px',
+        paddingBottom: '20px',
+        borderBottom: '2px solid #f0f0f0'
+    },
+    title: {
+        fontSize: '28px',
+        fontWeight: '700',
+        color: '#2d3748',
+        margin: 0,
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        WebkitBackgroundClip: 'text',
+        WebkitTextFillColor: 'transparent'
+    },
+    btnPrimary: {
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        border: 'none',
+        color: 'white',
+        padding: '12px 24px',
+        borderRadius: '8px',
+        fontWeight: '600',
+        fontSize: '14px',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        boxShadow: '0 4px 15px rgba(102, 126, 234, 0.3)',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '8px'
+    },
+    btnSecondary: {
+        background: '#f7fafc',
+        border: '2px solid #e2e8f0',
+        color: '#4a5568',
+        padding: '8px 16px',
+        borderRadius: '8px',
+        fontWeight: '600',
+        fontSize: '13px',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease'
+    },
+    btnDanger: {
+        background: 'linear-gradient(135deg, #f56565 0%, #e53e3e 100%)',
+        border: 'none',
+        color: 'white',
+        padding: '10px 20px',
+        borderRadius: '8px',
+        fontWeight: '600',
+        fontSize: '14px',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        boxShadow: '0 4px 15px rgba(245, 101, 101, 0.3)'
+    },
+    btnInfo: {
+        background: 'linear-gradient(135deg, #4299e1 0%, #3182ce 100%)',
+        border: 'none',
+        color: 'white',
+        padding: '8px 16px',
+        borderRadius: '6px',
+        fontWeight: '500',
+        fontSize: '13px',
+        cursor: 'pointer',
+        transition: 'all 0.3s ease',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '6px',
+        marginRight: '8px'
+    },
+    table: {
+        width: '100%',
+        borderCollapse: 'separate',
+        borderSpacing: 0,
+        borderRadius: '12px',
+        overflow: 'hidden',
+        boxShadow: '0 2px 10px rgba(0,0,0,0.05)'
+    },
+    tableHeader: {
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+        padding: '16px',
+        textAlign: 'left',
+        fontWeight: '600',
+        fontSize: '14px',
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px'
+    },
+    tableRow: {
+        background: '#ffffff',
+        borderBottom: '1px solid #e2e8f0',
+        transition: 'all 0.2s ease'
+    },
+    tableCell: {
+        padding: '16px',
+        color: '#4a5568',
+        fontSize: '14px'
+    },
+    link: {
+        color: '#667eea',
+        textDecoration: 'none',
+        fontWeight: '500',
+        cursor: 'pointer',
+        transition: 'all 0.2s ease',
+        display: 'inline-flex',
+        alignItems: 'center',
+        gap: '6px'
+    },
+    modalOverlay: {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        background: 'rgba(0, 0, 0, 0.75)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        zIndex: 1000,
+        backdropFilter: 'blur(5px)'
+    },
+    modalContent: {
+        background: '#ffffff',
+        borderRadius: '16px',
+        width: '90%',
+        maxWidth: '500px',
+        maxHeight: '90vh',
+        overflow: 'auto',
+        boxShadow: '0 20px 60px rgba(0,0,0,0.3)'
+    },
+    modalHeader: {
+        padding: '24px 30px',
+        borderBottom: '2px solid #e2e8f0',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+        color: 'white',
+        borderRadius: '16px 16px 0 0'
+    },
+    modalTitle: {
+        fontSize: '22px',
+        fontWeight: '700',
+        margin: 0
+    },
+    modalBody: {
+        padding: '30px'
+    },
+    modalFooter: {
+        padding: '20px 30px',
+        borderTop: '2px solid #e2e8f0',
+        display: 'flex',
+        justifyContent: 'flex-end',
+        gap: '12px',
+        background: '#f7fafc',
+        borderRadius: '0 0 16px 16px'
+    },
+    formGroup: {
+        marginBottom: '24px'
+    },
+    formLabel: {
+        display: 'block',
+        marginBottom: '8px',
+        color: '#2d3748',
+        fontWeight: '600',
+        fontSize: '14px'
+    },
+    formControl: {
+        width: '100%',
+        padding: '12px 16px',
+        border: '2px solid #e2e8f0',
+        borderRadius: '8px',
+        fontSize: '14px',
+        transition: 'all 0.3s ease',
+        background: '#ffffff'
+    },
+    emptyState: {
+        textAlign: 'center',
+        padding: '60px 20px',
+        color: '#a0aec0'
+    },
+    emptyStateIcon: {
+        fontSize: '64px',
+        marginBottom: '20px',
+        opacity: 0.5
+    },
+    emptyStateText: {
+        fontSize: '18px',
+        fontWeight: '500',
+        marginBottom: '10px'
+    },
+    emptyStateSubtext: {
+        fontSize: '14px',
+        color: '#718096'
+    }
+};
+
+export default function ReportUpload() {
     const location = useLocation();
     const userId = location.state?.userId;
 
-    const [jsonData, setJsonData] = useState(null); // State to store parsed JSON data
-    const [error, setError] = useState(''); // State for error messages
+    const [jsonData, setJsonData] = useState(null);
+    const [error, setError] = useState('');
     const [trackList, setTrackList] = useState([])
     const [userDetails, setUserDetails] = useState({})
     const [allReport, setAllReport] = useState({})
 
-    // Add these to your existing state declarations at the top of the component
     const [showModal, setShowModal] = useState(false);
     const [selectedFile, setSelectedFile] = useState({});
     const [currentItemId, setCurrentItemId] = useState(null);
-    const [type, setType] = useState(''); // Default type is 'market'
+    const [type, setType] = useState('');
     const [todate, setTodate] = useState('')
     const [fromdate, setFromdate] = useState('')
     const [reportShowModal, setReportShowModal] = useState(false);
     const [uploadProgress, setUploadProgress] = useState(0);
     const [isUploading, setIsUploading] = useState(false);
 
-    // Add this function to handle file upload
     const handleUploadExcel = async () => {
-
         if (!selectedFile || !currentItemId) {
             showError("Please select a file first", "Error");
             return;
         }
 
-        // Create FormData to send the file
         const formData = new FormData();
         formData.append('file', selectedFile);
         formData.append('type', type);
@@ -70,11 +282,11 @@ export default function ReportUpload() {
                 showUploadProgress(100, "Upload complete. Processing...");
                 setTimeout(() => {
                     showSuccess("File uploaded successfully", "Success");
-                setShowModal(false);
-                setSelectedFile(null);
+                    setShowModal(false);
+                    setSelectedFile(null);
                     setUploadProgress(0);
                     setIsUploading(false);
-                getAllReport(); // Refresh the data
+                    getAllReport();
                 }, 1000);
             } else {
                 setUploadProgress(0);
@@ -89,16 +301,10 @@ export default function ReportUpload() {
         }
     };
 
-
-
-
     useEffect(() => {
-        // getTrack()
         getClientNo(userId);
         getAllReport()
     }, [])
-
-
 
     const getClientNo = async (userId) => {
         try {
@@ -112,67 +318,39 @@ export default function ReportUpload() {
         }
     };
 
-
-
-    // Handle file input change
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
             if (file.type === 'text/csv') {
-                setError(''); // Reset error if file is valid
-                parseCSV(file); // Call function to parse CSV
+                setError('');
+                parseCSV(file);
             } else {
                 setError('Please upload a valid CSV file.');
             }
         }
     };
 
-
-    // const parseCSV = (file) => {
-    //   Papa.parse(file, {
-    //     complete: (result) => {
-    //       console.log('CSV Parsed:', result);        // console.log('JSON with cleaned keys:', json);
-    //       setJsonData(result.data); // Store JSON data in state
-    //     },
-    //     header: true, // Treat first row as header
-    //     skipEmptyLines: true, // Skip empty lines in CSV
-    //   });
-    // };
-
-
-    // Parse the CSV file and convert it to JSON
     const parseCSV = (file) => {
         Papa.parse(file, {
             complete: (result) => {
                 console.log('CSV Parsed:', result);
-
-                // Remove spaces in keys with two or three words
                 const json = result.data.map((row) => {
                     const cleanedRow = {};
                     Object.keys(row).forEach((key) => {
-                        let cleanedKey = key.trim().replace(/\s+/g, ''); // Trim and remove spaces within the key
+                        let cleanedKey = key.trim().replace(/\s+/g, '');
                         cleanedKey = cleanedKey.trim().replace('(', '_');
                         cleanedKey = cleanedKey.trim().replace(')', '');
-
-                        cleanedRow[cleanedKey] = row[key]; // Assign the value to the cleaned key
+                        cleanedRow[cleanedKey] = row[key];
                     });
                     return cleanedRow;
                 });
-
                 console.log('JSON with cleaned keys:', json);
-                setJsonData(json); // Store JSON data in state
+                setJsonData(json);
             },
-            header: true, // Treat first row as header
-            skipEmptyLines: true, // Skip empty lines in CSV
+            header: true,
+            skipEmptyLines: true,
         });
     };
-
-
-
-
-
-
-
 
     const uploadStoreExcel = async () => {
         let body = {
@@ -190,7 +368,6 @@ export default function ReportUpload() {
                     type === 'market' ?
                         base.uploadMarketReport :
                         base.uploadOverviewReport,
-
             body)
         console.log(result)
         if (result.data.status === true) {
@@ -201,51 +378,6 @@ export default function ReportUpload() {
             showError(result.message, "Error");
         }
     }
-
-    // const uploadStoreExcel = async () => {
-    //     let body = {
-    //         userId: userId,
-    //         data: jsonData
-    //     }
-    //     let result = await postData(base.uploadStoreReport, body)
-    //     console.log(result)
-    //     if (result.data.status === true) {
-    //         Swal.fire("Success", result.message, result.message);
-
-    //     } else {
-    //         Swal.fire("Error", result.message, result.message);
-    //     }
-    // }
-
-
-    // const uploadMarketExcel = async () => {
-    //     let body = {
-    //         userId: userId,
-    //         data: jsonData
-    //     }
-    //     let result = await postData(base.uploadMarketReport, body)
-    //     console.log(result)
-    //     if (result.data.status === true) {
-    //         Swal.fire("Success", result.message, result.message);
-    //     } else {
-    //         Swal.fire("Error", result.message, result.message);
-    //     }
-    // }
-
-    // const uploadOverviewExcel = async () => {
-    //     let body = {
-    //         userId: userId,
-    //         data: jsonData
-    //     }
-    //     let result = await postData(base.uploadOverviewReport, body)
-    //     console.log(result)
-    //     if (result.data.status === true) {
-    //         Swal.fire("Success", result.message, result.message);
-    //     } else {
-    //         Swal.fire("Error", result.message, result.message);
-    //     }
-    // }
-
 
     const getAllReport = async () => {
         setAllReport([])
@@ -273,7 +405,6 @@ export default function ReportUpload() {
         }
     }
 
-
     const downloadFile = (url, name) => {
         if (!url || url === "") {
             alert("No file available to download");
@@ -281,34 +412,20 @@ export default function ReportUpload() {
         }
 
         try {
-            // Create a temporary anchor element
             const link = document.createElement('a');
-
-            // Ensure URL uses HTTPS instead of HTTP
             if (url.startsWith('http:')) {
                 url = url.replace('http:', 'https:');
             }
-
-            // Check if URL is relative and convert to absolute if needed
             if (url.startsWith('/') && !url.startsWith('//')) {
                 url = window.location.origin + url;
             }
-
             link.href = url;
-
-            // Extract filename from URL or use a default name
             const filename = url.split('/').pop() || name + '.xlsx';
             link.download = filename;
-
-            // Set additional attributes that might help in production
             link.target = '_blank';
             link.rel = 'noopener noreferrer';
-
-            // Append to body, click and remove
             document.body.appendChild(link);
             link.click();
-
-            // Small timeout before removing to ensure the download starts
             setTimeout(() => {
                 document.body.removeChild(link);
             }, 100);
@@ -318,7 +435,127 @@ export default function ReportUpload() {
         }
     }
 
+    const renderTable = (data, columns, type) => {
+        if (!data || data.length === 0) {
+            return (
+                <div style={modernStyles.emptyState}>
+                    <div style={modernStyles.emptyStateIcon}>📊</div>
+                    <div style={modernStyles.emptyStateText}>No Data Available</div>
+                    <div style={modernStyles.emptyStateSubtext}>Click "Add New" to upload your first report</div>
+                </div>
+            );
+        }
 
+        return (
+            <div style={{ overflowX: 'auto', borderRadius: '12px' }}>
+                <table style={modernStyles.table}>
+                    <thead>
+                        <tr>
+                            {columns.map((col, idx) => (
+                                <th key={idx} style={modernStyles.tableHeader}>{col}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((item, index) => (
+                            <tr key={index} style={modernStyles.tableRow} onMouseEnter={(e) => {
+                                e.currentTarget.style.background = '#f7fafc';
+                            }} onMouseLeave={(e) => {
+                                e.currentTarget.style.background = '#ffffff';
+                            }}>
+                                <td style={modernStyles.tableCell}>{index + 1}</td>
+                                {type === 'store' && <td style={modernStyles.tableCell}>{item.Store}</td>}
+                                {type === 'market' && <td style={modernStyles.tableCell}>{item.Market}</td>}
+                                {type === 'track' && <td style={modernStyles.tableCell}>{item.Track}</td>}
+                                {type === 'overview' && <td style={modernStyles.tableCell}>{item.toDate}</td>}
+                                {type !== 'overview' && <td style={modernStyles.tableCell}>{item.toDate}</td>}
+                                {type !== 'overview' && <td style={modernStyles.tableCell}>{item.fromDate}</td>}
+                                {type === 'overview' && <td style={modernStyles.tableCell}>{item.fromDate}</td>}
+                                {type === 'overview' && <td style={modernStyles.tableCell}>{item.Date}</td>}
+                                <td style={modernStyles.tableCell}>
+                                    <strong style={{ color: '#22c55e' }}>£{item.Earnings_GBP || '0.00'}</strong>
+                                </td>
+                                <td style={modernStyles.tableCell}>
+                                    {item.Excel != "" && (
+                                        <a 
+                                            onClick={() => { downloadFile(item.Excel, item.name) }}
+                                            style={modernStyles.link}
+                                            onMouseEnter={(e) => e.target.style.color = '#764ba2'}
+                                            onMouseLeave={(e) => e.target.style.color = '#667eea'}
+                                        >
+                                            <i className="fa fa-download"></i> Download
+                                        </a>
+                                    )}
+                                    <button
+                                        style={modernStyles.btnInfo}
+                                        onClick={() => {
+                                            setCurrentItemId(item._id);
+                                            setShowModal(true);
+                                            setType(type);
+                                        }}
+                                        onMouseEnter={(e) => {
+                                            e.target.style.transform = 'translateY(-2px)';
+                                            e.target.style.boxShadow = '0 6px 20px rgba(66, 153, 225, 0.4)';
+                                        }}
+                                        onMouseLeave={(e) => {
+                                            e.target.style.transform = 'translateY(0)';
+                                            e.target.style.boxShadow = 'none';
+                                        }}
+                                    >
+                                        <i className="fa fa-file-excel-o"></i> Upload Excel
+                                    </button>
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+                <div style={{ marginTop: '20px', display: 'flex', justifyContent: 'flex-end' }}>
+                    <button
+                        onClick={() => deleteData(type)}
+                        style={modernStyles.btnDanger}
+                        onMouseEnter={(e) => {
+                            e.target.style.transform = 'translateY(-2px)';
+                            e.target.style.boxShadow = '0 6px 20px rgba(245, 101, 101, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.boxShadow = '0 4px 15px rgba(245, 101, 101, 0.3)';
+                        }}
+                    >
+                        <i className="fa fa-trash"></i> Delete All
+                    </button>
+                </div>
+            </div>
+        );
+    };
+
+    const renderSection = (title, data, columns, type) => {
+        return (
+            <div style={modernStyles.card}>
+                <div style={modernStyles.header}>
+                    <h3 style={modernStyles.title}>{title}</h3>
+                    <button
+                        onClick={() => {
+                            setReportShowModal(true);
+                            setType(type);
+                        }}
+                        style={modernStyles.btnPrimary}
+                        onMouseEnter={(e) => {
+                            e.target.style.transform = 'translateY(-2px)';
+                            e.target.style.boxShadow = '0 6px 25px rgba(102, 126, 234, 0.4)';
+                        }}
+                        onMouseLeave={(e) => {
+                            e.target.style.transform = 'translateY(0)';
+                            e.target.style.boxShadow = '0 4px 15px rgba(102, 126, 234, 0.3)';
+                        }}
+                    >
+                        <i className="fa fa-plus-circle"></i> Add New
+                    </button>
+                </div>
+                {renderTable(data, columns, type)}
+            </div>
+        );
+    };
 
     return (
         <div>
@@ -330,580 +567,173 @@ export default function ReportUpload() {
             <SideBar />
             <div className="main-cotent">
                 <Nav />
-                <div className="content-wrapper">
+                <div className="content-wrapper" style={{ padding: '20px', background: '#f7fafc', minHeight: '100vh' }}>
+                    {renderSection(
+                        "Store Upload Excel",
+                        allReport?.storeData,
+                        ['#', 'Name', 'To Date', 'From Date', 'Earning (GBP)', 'Actions'],
+                        'store'
+                    )}
 
+                    {renderSection(
+                        "Market Upload Excel",
+                        allReport?.marketData,
+                        ['#', 'Name', 'To Date', 'From Date', 'Earning (GBP)', 'Actions'],
+                        'market'
+                    )}
 
-                    <br></br>
+                    {renderSection(
+                        "Tracks Upload Excel",
+                        allReport?.trackData,
+                        ['#', 'Name', 'To Date', 'From Date', 'Earning (GBP)', 'Actions'],
+                        'track'
+                    )}
 
-                    <div className="dash-detail " key={allReport?.storeData?.length}>
-                        <div className="col-md-12">
-                            <div className="">
-                                <div className="row align-items-center mb-3">
-                                    <div className="col-md-10">
-                                        <h3 className="mb-0">Store Upload Excel</h3>
-                                    </div>
-                                    <div className="col-md-2 text-right">
-                                        <button
-                                            className='btn btn-success'
-                                            onClick={() => {
-                                                setReportShowModal(true);
-                                                setType('store'); // Set the type to'market'
-                                            }}
-                                            style={{
-                                                padding: '8px 16px',
-                                                borderRadius: '4px'
-                                            }}
-                                        >
-                                            <i className="fa fa-plus-circle mr-2"></i>Add New
-                                        </button>
-                                    </div>
-                                </div>
-
-                                <section className="content-header">
-
-                                    {/* Upload Input */}
-
-
-                                    {allReport?.storeData?.length > 0 &&
-                                        <div>
-                                            <div className="col-md-12">
-
-                                                <table id="topstore" className="table table-bordered table-hover dataTable" aria-describedby="example2_info" style={{ overflowY: "auto", display: "block", border: 0, height: 450 }} >
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th >#</th>
-                                                            <th >Name</th>
-                                                            <th>To Date</th>
-                                                            <th>From Date</th>
-                                                          
-                                                            <th>Earning (GBP)</th>
-                                                            <th>Excel Data</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                                        {allReport?.storeData.length > 0 && allReport?.storeData.map((item, index) => (
-                                                            <tr className="odd">
-                                                                <td className="  sorting_1">{index + 1}</td>
-                                                                <td className="  sorting_1">{item.Store}</td>
-                                                                <td className="  ">{item.toDate}</td>
-                                                                <td className="  ">{item.fromDate}</td>
-                                                               
-                                                                <td className="  ">{item.Earnings_GBP}</td>
-                                                                <td>
-                                                                    {item.Excel != "" &&
-                                                                        <a onClick={() => { downloadFile(item.Excel, item.name) }}>
-                                                                            <i className="fa fa-download"></i> Download Excel
-                                                                        </a>
-                                                                    }
-
-                                                                    <button
-                                                                        className="btn btn-sm btn-info"
-                                                                        onClick={() => {
-                                                                            setCurrentItemId(item._id); // Store the current item ID
-                                                                            setShowModal(true);
-                                                                            setType('store'); // Set the type to 'market'
-                                                                        }}
-                                                                    >
-                                                                        <i className="fa fa-file-excel-o"></i> Upload Excel
-                                                                    </button>
-
-                                                                </td>
-
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-
-                                                </table>
-                                                <button
-                                                    onClick={() => deleteData("store")}
-                                                    type="Submit"
-                                                    className="btn btn-danger"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    }
-
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <br></br>
-
-                    <div className="dash-detail ">
-
-                        <div className="col-md-12">
-                            <div className="">
-                                <div className="row align-items-center mb-3">
-                                    <div className="col-md-10">
-                                        <h3 className="mb-0">Market Upload Excel</h3>
-                                    </div>
-                                    <div className="col-md-2 text-right">
-                                        <button
-                                            className='btn btn-success'
-                                            onClick={() => {
-                                                setReportShowModal(true);
-                                                setType('market'); // Set the type to'market'
-                                            }}
-                                            style={{
-                                                padding: '8px 16px',
-                                                borderRadius: '4px'
-                                            }}
-                                        >
-                                            <i className="fa fa-plus-circle mr-2"></i>Add New
-                                        </button>
-                                    </div>
-                                </div>
-                                <section className="content-header">
-
-                                    {allReport?.marketData?.length > 0 &&
-                                        <div>
-                                            <div className="col-md-12">
-
-                                                <table id="topstore" className="table table-bordered table-hover dataTable" aria-describedby="example2_info" style={{ height: 300, overflowY: "auto", display: "block", border: 0 }} >
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th >#</th>
-                                                            <th >name</th>
-                                                            <th>To Date</th>
-                                                            <th>From Date</th>
-                                                            <th>Earning (GBP)</th>
-                                                            <th>Excel Upload</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                                        {allReport?.marketData.length > 0 && allReport?.marketData.map((item, index) => (
-                                                            <tr className="odd">
-                                                                <td className="  sorting_1">{index + 1}</td>
-                                                                <td className="  sorting_1">{item.Market}</td>
-                                                                <td className="  ">{item.toDate}</td>
-                                                                <td className="  ">{item.fromDate}</td>
-                                                                <td className="  ">{item.Earnings_GBP}</td>
-
-                                                                <td>
-                                                                    {item.Excel != "" &&
-                                                                        <a onClick={() => { downloadFile(item.Excel, item.name) }}>
-                                                                            <i className="fa fa-download"></i> Download Excel
-                                                                        </a>
-                                                                    }
-
-                                                                    <button
-                                                                        className="btn btn-sm btn-info"
-                                                                        onClick={() => {
-                                                                            setCurrentItemId(item._id); // Store the current item ID
-                                                                            setShowModal(true);
-                                                                            setType('market'); // Set the type to 'market'
-                                                                        }}
-                                                                    >
-                                                                        <i className="fa fa-file-excel-o"></i> Upload Excel
-                                                                    </button>
-
-                                                                </td>
-
-
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-
-                                                </table>
-
-
-
-
-                                                <button
-                                                    onClick={() => deleteData("market")}
-                                                    type="Submit"
-                                                    className="btn btn-danger"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-
-                                        </div>
-
-                                    }
-
-
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <br></br>
-
-                    <div className="dash-detail ">
-                        <div className="col-md-12">
-                            <div className="">
-                                <div className="row align-items-center mb-3">
-                                    <div className="col-md-10">
-                                        <h3 className="mb-0">Tracks Upload Excel</h3>
-                                    </div>
-                                    <div className="col-md-2 text-right">
-                                        <button
-                                            className='btn btn-success'
-                                            onClick={() => {
-                                                setReportShowModal(true);
-                                                setType('track'); // Set the type to'market'
-                                            }}
-                                            style={{
-                                                padding: '8px 16px',
-                                                borderRadius: '4px'
-                                            }}
-                                        >
-                                            <i className="fa fa-plus-circle mr-2"></i>Add New
-                                        </button>
-                                    </div>
-                                </div>
-                                <section className="content-header">
-                                    {allReport?.trackData?.length > 0 &&
-                                        <div>
-                                            <div className="col-md-12">
-
-                                                <table id="topstore" className="table table-bordered table-hover dataTable" aria-describedby="example2_info" style={{ height: 300, overflowY: "auto", display: "block", border: 0 }} >
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th >#</th>
-                                                            <th >name</th>
-                                                            <th>To Date</th>
-                                                            <th>From Date</th>
-                                                            <th>Earning (GBP)</th>
-                                                            <th>Excel Data</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                                        {allReport?.trackData.length > 0 && allReport?.trackData.map((item, index) => (
-                                                            <tr className="odd">
-                                                                <td className="  sorting_1">{index + 1}</td>
-                                                                <td className="  sorting_1">{item.Track}</td>
-                                                                <td className='' sorting_1>{item.toDate}</td>
-                                                                <td className='' sorting_1 >{item.fromDate}</td>
-                                                                <td className="  ">{item.Earnings_GBP}</td>
-                                                                <td>
-                                                                    {item.Excel != "" &&
-                                                                        <a onClick={() => { downloadFile(item.Excel, item.name) }}>
-                                                                            <i className="fa fa-download"></i> Download Excel
-                                                                        </a>
-                                                                    }
-
-                                                                    <button
-                                                                        className="btn btn-sm btn-info"
-                                                                        onClick={() => {
-                                                                            setCurrentItemId(item._id); // Store the current item ID
-                                                                            setShowModal(true);
-                                                                            setType('track'); // Set the type to 'market'
-                                                                        }}
-                                                                    >
-                                                                        <i className="fa fa-file-excel-o"></i> Upload Excel
-                                                                    </button>
-
-                                                                </td>
-
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-
-                                                </table>
-                                                <button
-                                                    onClick={() => deleteData("track")}
-                                                    type="Submit"
-                                                    className="btn btn-danger"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-
-                                        </div>
-
-                                    }
-
-
-
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <br></br>
-
-                    <div className="dash-detail ">
-                        <div className="col-md-12">
-                            <div className="">
-                
-                                <div className="row align-items-center mb-3">
-                                    <div className="col-md-10">
-                                        <h3 className="mb-0">OverView Upload Excel</h3>
-                                    </div>
-                                    <div className="col-md-2 text-right">
-                                        <button
-                                            className='btn btn-success'
-                                            onClick={() => {
-                                                setReportShowModal(true);
-                                                setType('overview'); // Set the type to'market'
-                                            }}
-                                            style={{
-                                                padding: '8px 16px',
-                                                borderRadius: '4px'
-                                            }}
-                                        >
-                                            <i className="fa fa-plus-circle mr-2"></i>Add New
-                                        </button>
-                                    </div>
-                                </div>
-                                <section className="content-header">
-                                    {allReport?.overviewData?.length > 0 &&
-                                        <div>
-                                            <div className="col-md-12">
-
-                                                <table id="topstore" className="table table-bordered table-hover dataTable" aria-describedby="example2_info" style={{ height: 300, overflowY: "auto", display: "block", border: 0 }} >
-                                                    <thead>
-                                                        <tr role="row">
-                                                            <th >#</th>
-                                                            <th>To Date</th>
-                                                            <th>From Date</th>
-                                                            <th >Date</th>
-                                                            <th>Earning (GBP)</th>
-                                                            <th>Excel Data</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody role="alert" aria-live="polite" aria-relevant="all">
-                                                        {allReport?.overviewData.length > 0 && allReport?.overviewData.map((item, index) => (
-                                                            <tr className="odd">
-                                                                <td className="  sorting_1">{index + 1}</td>
-                                                                <td className="  sorting_1">{item.toDate}</td>
-                                                                <td className="  sorting_1">{item.fromDate}</td>
-                                                                <td className="  sorting_1">{item.Date}</td>
-                                                                <td className="  ">{item.Earnings_GBP}</td>
-                                                                <td>
-                                                                    {item.Excel != "" &&
-                                                                        <a onClick={() => { downloadFile(item.Excel, item.name) }}>
-                                                                            <i className="fa fa-download"></i> Download Excel
-                                                                        </a>
-                                                                    }
-
-                                                                    <button
-                                                                        className="btn btn-sm btn-info"
-                                                                        onClick={() => {
-                                                                            setCurrentItemId(item._id); // Store the current item ID
-                                                                            setShowModal(true);
-                                                                            setType('overview'); // Set the type to 'market'
-                                                                        }}
-                                                                    >
-                                                                        <i className="fa fa-file-excel-o"></i> Upload Excel
-                                                                    </button>
-
-                                                                </td>
-
-                                                            </tr>
-                                                        ))}
-                                                    </tbody>
-
-                                                </table>
-                                                <button
-                                                    onClick={() => deleteData("overview")}
-                                                    type="Submit"
-                                                    className="btn btn-danger"
-                                                >
-                                                    Delete
-                                                </button>
-                                            </div>
-
-                                        </div>
-                                    } 
-
-                                </section>
-                            </div>
-                        </div>
-                    </div>
-                    <br></br>
-
-                    <br></br>
-
-                    <br></br>
-
-                    {/* <div className="dash-detail ">
-
-            <section className="content">
-              <br></br>
-              <table id="example2" className="table table-bordered table-hover dataTable" aria-describedby="example2_info">
-                <thead>
-                  <tr>
-                    <th>#</th>
-                    <th>Track</th>
-                    <th>Quantity</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {trackList && trackList?.map((item, index) => {
-
-                    return (
-                      <tr style={{}} key={item._id}>
-                        <td>{index + 1}</td>
-
-                        <td>{item.Track}</td>
-                        <td>{item.Quantity}</td>
-
-                      </tr>
-                    )
-                  })}
-                </tbody>
-              </table>
-            </section>
-          </div> */}
+                    {renderSection(
+                        "Overview Upload Excel",
+                        allReport?.overviewData,
+                        ['#', 'To Date', 'From Date', 'Date', 'Earning (GBP)', 'Actions'],
+                        'overview'
+                    )}
                 </div>
-
-
-                {/* <FinancialReport /> */}
             </div>
 
+            {/* Upload Excel Modal */}
             {showModal && (
-                <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(73, 72, 72, 0.76)' }}>
-                    <div className="modal-dialog">
-                        <div className="modal-content">
-                            <div className="modal-header" style={{ backgroundColor: 'rgb(0, 0, 0)' }}>
-                                <h4 className="modal-title">Upload Excel File</h4>
-                                <button type="button" className="close" onClick={() => setShowModal(false)}>
-                                    <span>&times;</span>
-                                </button>
+                <div style={modernStyles.modalOverlay} onClick={() => setShowModal(false)}>
+                    <div style={modernStyles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <div style={modernStyles.modalHeader}>
+                            <h4 style={modernStyles.modalTitle}>Upload Excel File</h4>
+                            <button 
+                                type="button" 
+                                onClick={() => setShowModal(false)}
+                                style={{ 
+                                    background: 'none', 
+                                    border: 'none', 
+                                    color: 'white', 
+                                    fontSize: '24px', 
+                                    cursor: 'pointer',
+                                    padding: '0',
+                                    width: '30px',
+                                    height: '30px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                &times;
+                            </button>
+                        </div>
+                        <div style={modernStyles.modalBody}>
+                            <div style={modernStyles.formGroup}>
+                                <label style={modernStyles.formLabel}>Select Excel File:</label>
+                                <input
+                                    type="file"
+                                    accept=".xlsx,.xls,.csv"
+                                    onChange={(e) => {
+                                        if (e.target.files && e.target.files.length > 0) {
+                                            const file = e.target.files[0];
+                                            setSelectedFile(file);
+                                            console.log("Selected file:", file.name, file.type);
+                                        }
+                                    }}
+                                    style={modernStyles.formControl}
+                                />
                             </div>
-                            <div className="modal-body" style={{ display: 'block', backgroundColor: 'rgb(0, 0, 0)' }}>
-                                <div className="form-group" style={{ display: 'block', backgroundColor: 'rgb(0, 0, 0)' }}>
-                                    <label>Select Excel File:</label>
-                                    <input
-                                        type="file"
-                                        accept=".xlsx,.xls,.csv"
-                                        onChange={(e) => {
-                                            if (e.target.files && e.target.files.length > 0) {
-                                                const file = e.target.files[0];
-                                                let obj = {
-                                                    name: file.name,
-                                                    type: file.type
-                                                }
-                                                setSelectedFile(file);
-                                                console.log("Selected file:", file.name, file.type);
-                                            } else {
-                                                console.log("No file selected");
-                                            }
-                                        }}
-                                        className="form-control"
-                                    />
-                                </div>
-                            </div>
-                            <div className="modal-footer" style={{ backgroundColor: 'rgb(0, 0, 0)' }}>
-                                <button type="button" className="btn btn-dangar" onClick={() => setShowModal(false)}>
-                                    Close
-                                </button>
-                                <button type="button" className="btn btn-primary" onClick={handleUploadExcel}>
-                                    Upload
-                                </button>
-                            </div>
+                        </div>
+                        <div style={modernStyles.modalFooter}>
+                            <button 
+                                type="button" 
+                                onClick={() => setShowModal(false)}
+                                style={modernStyles.btnSecondary}
+                            >
+                                Close
+                            </button>
+                            <button 
+                                type="button" 
+                                onClick={handleUploadExcel}
+                                style={modernStyles.btnPrimary}
+                            >
+                                <i className="fa fa-upload"></i> Upload
+                            </button>
                         </div>
                     </div>
                 </div>
             )}
 
+            {/* Add New Report Modal */}
             {reportShowModal && (
-                <div className="modal" style={{ display: 'block', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}>
-                    <div className="modal-dialog modal-dialog-centered">
-                        <div className="modal-content" style={{ borderRadius: '8px', border: '1px solid #333' }}>
-                            <div className="modal-header" style={{
-                                backgroundColor: 'rgb(0, 0, 0)',
-                                color: 'white',
-                                borderBottom: '1px solid #333',
-                                padding: '15px 20px'
-                            }}>
-                                <h4 className="modal-title">Upload Excel File</h4>
-                                <button type="button" className="close" onClick={() => setReportShowModal(false)} style={{ color: 'white' }}>
-                                    <span>&times;</span>
-                                </button>
+                <div style={modernStyles.modalOverlay} onClick={() => setReportShowModal(false)}>
+                    <div style={modernStyles.modalContent} onClick={(e) => e.stopPropagation()}>
+                        <div style={modernStyles.modalHeader}>
+                            <h4 style={modernStyles.modalTitle}>Upload Excel File</h4>
+                            <button 
+                                type="button" 
+                                onClick={() => setReportShowModal(false)}
+                                style={{ 
+                                    background: 'none', 
+                                    border: 'none', 
+                                    color: 'white', 
+                                    fontSize: '24px', 
+                                    cursor: 'pointer',
+                                    padding: '0',
+                                    width: '30px',
+                                    height: '30px',
+                                    display: 'flex',
+                                    alignItems: 'center',
+                                    justifyContent: 'center'
+                                }}
+                            >
+                                &times;
+                            </button>
+                        </div>
+                        <div style={modernStyles.modalBody}>
+                            <div style={modernStyles.formGroup}>
+                                <label style={modernStyles.formLabel}>To Date:</label>
+                                <input
+                                    type="date"
+                                    onChange={(e) => { setTodate(e.target.value) }}
+                                    style={modernStyles.formControl}
+                                />
                             </div>
-                            <div className="modal-body" style={{
-                                backgroundColor: 'rgb(0, 0, 0)',
-                                color: 'white',
-                                padding: '20px'
-                            }}>
-                                <div className="row">
-                                    <div className="col-md-12">
-                                        <div className="form-group mb-4">
-                                            <label className="form-label mb-2">To Date:</label>
-                                            <input
-                                                type="date"
-                                                onChange={(e) => { setTodate(e.target.value) }}
-                                                className="form-control"
-                                                style={{
-                                                    backgroundColor: '#222',
-                                                    color: 'white',
-                                                    border: '1px solid #444',
-                                                    padding: '10px',
-                                                    borderRadius: '4px'
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="form-group mb-4">
-                                            <label className="form-label mb-2">From Date:</label>
-                                            <input
-                                                type="date"
-
-                                                onChange={(e) => { setFromdate(e.target.value) }}
-                                                className="form-control"
-                                                style={{
-                                                    backgroundColor: '#222',
-                                                    color: 'white',
-                                                    border: '1px solid #444',
-                                                    padding: '10px',
-                                                    borderRadius: '4px'
-                                                }}
-                                            />
-                                        </div>
-                                        <div className="form-group">
-                                            <label className="form-label mb-2">Select Excel:</label>
-                                            <input
-                                                type="file"
-                                                accept=".csv"
-                                                onChange={handleFileChange}
-                                                className="form-control"
-                                                style={{
-                                                    backgroundColor: '#222',
-                                                    color: 'white',
-                                                    border: '1px solid #444',
-                                                    padding: '10px',
-                                                    borderRadius: '4px'
-                                                }}
-                                            />
-                                        </div>
+                            <div style={modernStyles.formGroup}>
+                                <label style={modernStyles.formLabel}>From Date:</label>
+                                <input
+                                    type="date"
+                                    onChange={(e) => { setFromdate(e.target.value) }}
+                                    style={modernStyles.formControl}
+                                />
+                            </div>
+                            <div style={modernStyles.formGroup}>
+                                <label style={modernStyles.formLabel}>Select CSV File:</label>
+                                <input
+                                    type="file"
+                                    accept=".csv"
+                                    onChange={handleFileChange}
+                                    style={modernStyles.formControl}
+                                />
+                                {error && (
+                                    <div style={{ color: '#e53e3e', fontSize: '13px', marginTop: '8px' }}>
+                                        {error}
                                     </div>
-                                </div>
+                                )}
                             </div>
-                            <div className="modal-footer" style={{
-                                backgroundColor: 'rgb(0, 0, 0)',
-                                borderTop: '1px solid #333',
-                                padding: '15px 20px'
-                            }}>
-                                <button
-                                    type="button"
-                                    className="btn btn-secondary"
-                                    onClick={() => setReportShowModal(false)}
-                                    style={{
-                                        marginRight: '10px',
-                                        padding: '8px 16px',
-                                        borderRadius: '4px'
-                                    }}
-                                >
-                                    Close
-                                </button>
-                                <button
-                                    type="button"
-                                    className="btn btn-primary"
-                                    onClick={uploadStoreExcel}
-                                    style={{
-                                        padding: '8px 16px',
-                                        borderRadius: '4px',
-                                        backgroundColor: '#007bff',
-                                        border: 'none'
-                                    }}
-                                >
-                                    Upload
-                                </button>
-                            </div>
+                        </div>
+                        <div style={modernStyles.modalFooter}>
+                            <button
+                                type="button"
+                                onClick={() => setReportShowModal(false)}
+                                style={modernStyles.btnSecondary}
+                            >
+                                Close
+                            </button>
+                            <button
+                                type="button"
+                                onClick={uploadStoreExcel}
+                                style={modernStyles.btnPrimary}
+                            >
+                                <i className="fa fa-upload"></i> Upload
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -911,7 +741,3 @@ export default function ReportUpload() {
         </div>
     )
 }
-
-
-// Replace the existing button with this updated version
-

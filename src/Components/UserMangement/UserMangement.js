@@ -5,7 +5,7 @@ import { base } from "../../Constants/Data.constant";
 import { getData, postData } from "../../Services/Ops";
 import { Nav } from "../Common/Nav";
 import "./styles.css";
-import { Box, Button, Modal, Typography } from '@mui/material';
+import { Button } from '@mui/material';
 import DataTable from "../Common/DataTable/DataTable";
 
 const UserManagement = (props) => {
@@ -22,32 +22,39 @@ const UserManagement = (props) => {
   useEffect(() => {
     getUserList();
   }, [props])
-  const getUserList = async () => {
-    let result = await getData(base.userList);
-    console.log("my user list=========>", result.data)
-    const resultList = Array.isArray(result.data)
-      ? result.data
-        // .filter((item) => item.status === 'Pending') // Filter items with status 'Pending'
-        .map((item, index) => ({
-          _id: item._id,
-          id: index + 1,
-          name: item.name,
-          email: item.email,
-          wallet: item.wallet,
-          status: item.is_deleted == 1 ? "DeActive" : "Active",
-          action: "",
-        }))
-      : [];
-    setUsers(resultList)
-  }
 
+  const getUserList = async () => {
+    try {
+      let result = await getData(base.userList);
+      console.log("my user list=========>", result.data)
+      const resultList = Array.isArray(result.data?.data || result.data)
+        ? (result.data?.data || result.data)
+          .map((item, index) => ({
+            _id: item._id,
+            id: index + 1,
+            name: item.name || item.first_name || item.companyName || "N/A",
+            email: item.email || "N/A",
+            wallet: item.wallet || 0,
+            status: item.is_deleted == 1 ? "DeActive" : "Active",
+            role: item.role || "N/A",
+            phoneNumber: item.phoneNumber || item.phone || "N/A",
+            companyName: item.companyName || "N/A",
+            createdAt: item.createdAt || item.created_at || "N/A",
+            action: "",
+          }))
+        : [];
+      setUsers(resultList)
+    } catch (error) {
+      console.error("Error fetching user list:", error);
+      Swal.fire("Error", "Failed to fetch user list", "error");
+    }
+  }
 
   const onDetails = (id) => {
     navigate("/UserDetails", { state: { userId: id } });
   }
 
   const user_delete = async (userId, status) => {
-
     try {
       let body = {
         "userId": userId,
@@ -68,46 +75,72 @@ const UserManagement = (props) => {
 
   const columns = [
     { field: 'id', headerName: '#', headerClassName: 'black-header', width: 50 },
-    { field: '_id', headerName: 'Id', headerClassName: 'black-header', width: 250 },
-    { field: 'name', headerName: 'Name', headerClassName: 'black-header', width: 100 },
-    { field: 'email', headerName: 'EMAIL', headerClassName: 'black-header', width: 100 },
-    { field: 'wallet', headerName: 'WALLET', headerClassName: 'black-header', width: 150 },
-    { field: 'status', headerName: 'STATUS', headerClassName: 'black-header', width: 150 },
+    { field: 'name', headerName: 'Name', headerClassName: 'black-header', width: 150 },
+    { field: 'email', headerName: 'Email', headerClassName: 'black-header', width: 200 },
+    { field: 'phoneNumber', headerName: 'Phone', headerClassName: 'black-header', width: 120 },
+    { field: 'companyName', headerName: 'Company', headerClassName: 'black-header', width: 150 },
+    { field: 'role', headerName: 'Role', headerClassName: 'black-header', width: 100 },
+    { field: 'wallet', headerName: 'Wallet', headerClassName: 'black-header', width: 100 },
+    { field: 'status', headerName: 'Status', headerClassName: 'black-header', width: 100 },
     {
-      field: 'action', headerName: 'ACTION', width: 300,
+      field: 'action', headerName: 'Actions', width: 450,
       renderCell: (params) => (
-        <div style={{ gap: '8px', display: 'flex', padding: 10 }}>
+        <div style={{ gap: '8px', display: 'flex', padding: 10, flexWrap: 'wrap' }}>
           <Button
             variant="contained"
-            color="info"
+            color="primary"
+            size="small"
+            onClick={() => {
+              navigate("/UserCompleteDetails", { state: { userId: params.row._id } });
+            }}
+            style={{ 
+              fontSize: '12px', 
+              padding: '6px 12px',
+              fontWeight: 'bold',
+              minWidth: '140px'
+            }}
+          >
+            <i className="fa fa-user-circle" style={{ marginRight: '6px' }}></i>
+            User Details
+          </Button>
+          <Button
+            variant="contained"
+            color="success"
+            size="small"
+            onClick={() => {
+              navigate("/UserMembershipDetails", { state: { userId: params.row._id } });
+            }}
+            style={{ 
+              fontSize: '12px', 
+              padding: '6px 12px',
+              fontWeight: 'bold',
+              minWidth: '160px'
+            }}
+          >
+            <i className="fa fa-id-card" style={{ marginRight: '6px' }}></i>
+            Membership Info
+          </Button>
+          <Button
+            variant="contained"
+            color="warning"
             size="small"
             onClick={() => {
               user_delete(params.row._id, params.row.status);
             }}
+            style={{ fontSize: '11px', padding: '4px 8px' }}
           >
-            Disable
+            {params.row.status === "Active" ? "Disable" : "Enable"}
           </Button>
-          {/* <Button
-          variant="contained"
-          color="secondary" // Corrected the color to "secondary"
-          size="small"
-          onClick={() => {
-            handle_change_status("Reject", params.row._id);
-          }}
-        >
-          Reject
-        </Button> */}
         </div>
-
       )
     }
   ];
+
   return (
     <div>
       <Nav />
       <div className="content-wrapper">
         <section className="content">
-
           <div className="content">
             <h1>User Management</h1>
 
@@ -122,42 +155,6 @@ const UserManagement = (props) => {
               height="500"
               width="100%"
             />
-            {/* User List */}
-            {/* <table id="example2" className="table table-bordered table-hover dataTable" aria-describedby="example2_info">
-              <thead>
-                <tr>
-                  <th>Role</th>
-                  <th>Email</th>
-                  <th>Wallet</th>
-                  <th>Status</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users && users?.map((user) => {
-                  let bg = user.is_deleted == 1 ? 'red' : 'white';
-                  return (
-                    <tr style={{ backgroundColor: `${bg}` }} key={user._id}>
-                      <td>{user.role}</td>
-                      <td><a onClick={() => { onDetails(user._id) }}>{user.email}</a></td>
-                      <td>{user.wallet}</td>
-                      <td>{user.is_active}</td>
-                      <td>
-                        {/* <button className="action-button edit" onClick={()=>{navigate("/edit-permission",{ state: { userData: user} });}}>Edit</button> */}
-            {/* <button
-                          className="action-button delete"
-                          onClick={() => handleDelete(user.login)}
-                        >
-                          Delete
-                        </button>
-                        <button className="action-button disable">Disable</button>  
-                        {user.is_deleted == '0' && <button onClick={() => user_delete(user._id)} className="action-button disable">Disable</button>}
-                      </td>
-                    </tr>
-                  )
-                })}
-              </tbody>
-            </table> */}
           </div>
         </section>
       </div>

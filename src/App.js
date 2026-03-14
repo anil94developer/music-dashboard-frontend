@@ -31,6 +31,10 @@ const WithdrawRequest = lazy(() => import("./Components/Withdraw Request/Withdra
 const AllTranscations = lazy(() => import("./Components/AllTranscations/AllTranscations"));
 const Upload = lazy(() => import("./Components/Upload/Upload"));
 const UserDetails = lazy(() => import("./Components/UserMangement/UserDetails"));
+const UserCompleteDetails = lazy(() => import("./Components/UserMangement/UserCompleteDetails"));
+const UserMembershipDetails = lazy(() => import("./Components/UserMangement/UserMembershipDetails"));
+const SelectMembership = lazy(() => import("./Components/Membership/SelectMembership"));
+const PaymentSuccess = lazy(() => import("./Components/Payment/PaymentSuccess"));
 const CompanyManagement = lazy(() => import("./Components/CompanyMangement/CompanyMangement"));
 const AddCompany = lazy(() => import("./Components/CompanyMangement/AddCompany"));
 const CompanyDetails = lazy(() => import("./Components/CompanyMangement/CompanyDetails"));
@@ -368,6 +372,8 @@ function App() {
         <Route path="/Withdraw Request" element={<ProtectedRoute allowedRoles={["Admin"]}><WithdrawRequest /></ProtectedRoute>}></Route>
         <Route path="/All Transcations" element={<ProtectedRoute allowedRoles={["Admin"]}><AllTranscations /></ProtectedRoute>}></Route>
         <Route path="/ReportUpload" element={<ProtectedRoute allowedRoles={["Admin"]}><ReportUpload /></ProtectedRoute>}></Route>
+        <Route path="/UserCompleteDetails" element={<ProtectedRoute allowedRoles={["Admin"]}><UserCompleteDetails /></ProtectedRoute>}></Route>
+        <Route path="/UserMembershipDetails" element={<ProtectedRoute allowedRoles={["Admin"]}><UserMembershipDetails /></ProtectedRoute>}></Route>
         <Route path="/Membership" element={<ProtectedRoute allowedRoles={["Admin"]}><Membership /></ProtectedRoute>}></Route>
         <Route path="/UserPlan" element={<ProtectedRoute allowedRoles={["Admin"]}><UserPlan /></ProtectedRoute>}></Route>
         <Route path="/MasterArtists" element={<ProtectedRoute allowedRoles={["Admin"]}><MasterArtists /></ProtectedRoute>}></Route>

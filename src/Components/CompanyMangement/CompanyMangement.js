@@ -37,11 +37,9 @@ const CompanyManagement = (props) => {
   }, [props, currentPage, limit])
 
   useEffect(() => {
-    // Reset to page 1 when search changes
-    if (search !== "") {
-      setCurrentPage(1);
-      getUserList(1, limit);
-    }
+    // Reset to page 1 when search changes and fetch data
+    setCurrentPage(1);
+    getUserList(1, limit);
   }, [search])
 
   const getUserList = async (page = 1, pageLimit = 10) => {
@@ -50,56 +48,65 @@ const CompanyManagement = (props) => {
       // Check if API supports pagination parameters
       const url = base.userList + `?page=${page}&limit=${pageLimit}&search=${search}`;
       let result = await getData(url);
-    console.log("my user list=========>", result.data)
+      console.log("CompanyManagement - Full API response:", result);
       
-      if (result.data && result.data.data) {
-        // If API returns paginated response
-        const resultList = Array.isArray(result.data.data)
-          ? result.data.data.map((item, index) => ({
-              _id: item._id,
-              clientNumber: item.clientNumber,
-              id: (page - 1) * pageLimit + index + 1,
-              name: item.name,
-              email: item.email,
-              wallet: item.wallet,
-              status: item.is_deleted == 0 ? "Active" : "DeActive",
-              action: "",
-            }))
-          : [];
-        setUsers(resultList);
-        setTotalPages(result.data.totalPages || Math.ceil((result.data.total || resultList.length) / pageLimit));
-      } else {
-        // Fallback: if API doesn't support pagination, handle client-side
-        const allData = Array.isArray(result.data) ? result.data : [];
-        const filteredData = search 
-          ? allData.filter(item => 
-              item.name?.toLowerCase().includes(search.toLowerCase()) ||
-              item.email?.toLowerCase().includes(search.toLowerCase()) ||
-              item.clientNumber?.toLowerCase().includes(search.toLowerCase())
-            )
-          : allData;
-        
-        const startIndex = (page - 1) * pageLimit;
-        const endIndex = startIndex + pageLimit;
-        const paginatedData = filteredData.slice(startIndex, endIndex);
-        
-        const resultList = paginatedData.map((item, index) => ({
-          _id: item._id,
-          clientNumber: item.clientNumber,
-          id: startIndex + index + 1,
-          name: item.name,
-          email: item.email,
-          wallet: item.wallet,
-          status: item.is_deleted == 0 ? "Active" : "DeActive",
-          action: "",
-        }));
-        
-        setUsers(resultList);
-        setTotalPages(Math.ceil(filteredData.length / pageLimit));
+      // Handle different response structures
+      let userDataArray = [];
+      let totalPagesCount = 1;
+      
+      // Check if result has data property (standard API response)
+      if (result && result.data) {
+        // Check if result.data is an object with nested data array (paginated response)
+        if (result.data.data && Array.isArray(result.data.data)) {
+          userDataArray = result.data.data;
+          totalPagesCount = result.data.totalPages || Math.ceil((result.data.total || userDataArray.length) / pageLimit);
+        } 
+        // Check if result.data is directly an array
+        else if (Array.isArray(result.data)) {
+          userDataArray = result.data;
+          totalPagesCount = Math.ceil(userDataArray.length / pageLimit);
+        }
+      } 
+      // Check if result is directly an array (fallback)
+      else if (Array.isArray(result)) {
+        userDataArray = result;
+        totalPagesCount = Math.ceil(userDataArray.length / pageLimit);
+      }
+      
+      console.log("CompanyManagement - Extracted user data:", userDataArray);
+      console.log("CompanyManagement - Total users found:", userDataArray.length);
+      
+      // Map the data to table format
+      const resultList = userDataArray.map((item, index) => ({
+        _id: item._id,
+        clientNumber: item.clientNumber || item.client_number || "N/A",
+        id: (page - 1) * pageLimit + index + 1,
+        name: item.name || item.companyName || item.firstName + " " + (item.lastName || "") || "N/A",
+        email: item.email || "N/A",
+        wallet: item.wallet || 0,
+        status: item.is_deleted == 0 || item.is_deleted === 0 ? "Active" : "DeActive",
+        action: "",
+      }));
+      
+      console.log("CompanyManagement - Mapped result list:", resultList);
+      setUsers(resultList);
+      setTotalPages(totalPagesCount);
+      
+      if (resultList.length === 0) {
+        console.warn("CompanyManagement - No users found. Check API response structure.");
       }
     } catch (error) {
-      console.error("Error fetching user list:", error);
+      console.error("CompanyManagement - Error fetching user list:", error);
+      console.error("CompanyManagement - Error details:", error.response || error.message);
       setUsers([]);
+      setTotalPages(1);
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Failed to fetch company list. Please try again.',
+        timer: 3000,
+        showConfirmButton: false
+      });
     } finally {
       setIsLoading(false);
     }
@@ -615,6 +622,28 @@ const CompanyManagement = (props) => {
                           </td>
                           <td className="">
                             <div className="company-management-actions" style={{ gap: '8px', display: 'flex', flexWrap: 'wrap' }}>
+                              <button
+                                className="btn btn-sm btn-primary"
+                                onClick={() => {
+                                  navigate("/UserCompleteDetails", { state: { userId: item._id } });
+                                }}
+                                title="View User Details"
+                                style={{ backgroundColor: '#007bff', borderColor: '#007bff', color: '#fff', minWidth: '120px' }}
+                              >
+                                <i className="fa fa-user-circle" style={{ marginRight: '5px' }}></i>
+                                User Details
+                              </button>
+                              <button
+                                className="btn btn-sm btn-success"
+                                onClick={() => {
+                                  navigate("/UserMembershipDetails", { state: { userId: item._id } });
+                                }}
+                                title="View Membership Details"
+                                style={{ backgroundColor: '#28a745', borderColor: '#28a745', color: '#fff', minWidth: '140px' }}
+                              >
+                                <i className="fa fa-id-card" style={{ marginRight: '5px' }}></i>
+                                Membership Info
+                              </button>
                               <button
                                 key={`${item._id}-${item.status}`}
                                 className={`btn btn-sm ${item.status === "DeActive" ? "btn-success" : "btn-warning"}`}

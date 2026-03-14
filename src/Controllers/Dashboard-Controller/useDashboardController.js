@@ -20,15 +20,35 @@ const useDashboardController = (props) => {
                 getData(base.dashboardCount)
             ]);
             
+            // Extract counts from dashboardCount response
+            const counts = dashboardCount?.data || {};
+            
             setDashboardData({
                 "myReleaseCount": releaseList?.data?.length || 0,
                 "myTracksCount": tracksList?.data?.length || 0,
                 "masterAccount": userList?.data?.length || 0,
-                "dashboardCount": dashboardCount?.data || {}
+                "totalTracks": counts?.totalCount || 0,
+                "totalPendingTracks": counts?.totalPending || 0,
+                "approveContent": counts?.totalApprove || 0,
+                "rejectContent": counts?.totalReject || 0,
+                "totalCompany": counts?.totalCompany || 0,
+                "dashboardCount": counts
             });  
 
         } catch (error) {
             console.error("Error fetching dashboard data:", error);
+            // Set default values on error
+            setDashboardData({
+                "myReleaseCount": 0,
+                "myTracksCount": 0,
+                "masterAccount": 0,
+                "totalTracks": 0,
+                "totalPendingTracks": 0,
+                "approveContent": 0,
+                "rejectContent": 0,
+                "totalCompany": 0,
+                "dashboardCount": {}
+            });
         }
     };
 

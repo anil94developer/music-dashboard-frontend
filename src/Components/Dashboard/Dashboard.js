@@ -89,7 +89,7 @@ export const Dashboard = () => {
                   <div className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}>
                     <div className="inner">
                       <p>Total Tracks</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.totalTracks || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon1.png')} alt="Total Tracks" />
@@ -100,7 +100,7 @@ export const Dashboard = () => {
                   <div className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}>
                     <div className="inner">
                       <p>Total Pending Tracks</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.totalPendingTracks || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon2.png')} alt="Pending Tracks" />
@@ -111,7 +111,7 @@ export const Dashboard = () => {
                   <div className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}>
                     <div className="inner">
                       <p>Approve Content</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.approveContent || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon1.png')} alt="Approve Content" />
@@ -122,7 +122,7 @@ export const Dashboard = () => {
                   <div className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}>
                     <div className="inner">
                       <p>Reject Content</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.rejectContent || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon2.png')} alt="Reject Content" />
@@ -161,7 +161,7 @@ export const Dashboard = () => {
                   <div className="dash-detail d-flex flex-wrap admin-dashboard-card">
                     <div className="inner">
                       <p>Total Tracks</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.totalTracks || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon1.png')} alt="Total Tracks" />
@@ -172,7 +172,7 @@ export const Dashboard = () => {
                   <div className="dash-detail d-flex flex-wrap admin-dashboard-card">
                     <div className="inner">
                       <p>Total Pending Tracks</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.totalPendingTracks || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon2.png')} alt="Pending Tracks" />
@@ -183,7 +183,7 @@ export const Dashboard = () => {
                   <div className="dash-detail d-flex flex-wrap admin-dashboard-card">
                     <div className="inner">
                       <p>Approve Content</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.approveContent || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon1.png')} alt="Approve Content" />
@@ -194,7 +194,7 @@ export const Dashboard = () => {
                   <div className="dash-detail d-flex flex-wrap admin-dashboard-card">
                     <div className="inner">
                       <p>Reject Content</p>
-                      <h3>0</h3>
+                      <h3>{dashboardData?.rejectContent || 0}</h3>
                     </div>
                     <div className="icon">
                       <img className="img-fluid" src={require('../../assets/images/dash-icon2.png')} alt="Reject Content" />
