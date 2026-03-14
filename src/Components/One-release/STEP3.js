@@ -412,9 +412,9 @@ export default function STEP3(props) {
             <i className="fa fa-music"></i>
             <p>No tracks added yet</p>
             <span>Click "Add Track" to create your first track</span>
-            <button onClick={openModal} className="btn-add-first-track">
+            {/* <button onClick={openModal} className="btn-add-first-track">
               <i className="fa fa-plus"></i> Add Your First Track
-            </button>
+            </button> */}
           </div>
         )}
       </div>
@@ -1006,10 +1006,7 @@ export default function STEP3(props) {
                   </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Modal Footer */}
-              <div className="track-modal-footer">
+                <div className="track-modal-footer">
                 <button 
                   type="button" 
                   className="btn-cancel-track" 
@@ -1028,6 +1025,10 @@ export default function STEP3(props) {
                   <i className="fa fa-save"></i> {btnName === "Edit" ? "Update Track" : "Save Track"}
                 </button>
               </div>
+              </div>
+
+              {/* Modal Footer */}
+              
             </div>
           </div>
         </div>

@@ -38,6 +38,7 @@ const PaymentSuccess = lazy(() => import("./Components/Payment/PaymentSuccess"))
 const CompanyManagement = lazy(() => import("./Components/CompanyMangement/CompanyMangement"));
 const AddCompany = lazy(() => import("./Components/CompanyMangement/AddCompany"));
 const CompanyDetails = lazy(() => import("./Components/CompanyMangement/CompanyDetails"));
+const ClientDetails = lazy(() => import("./Components/CompanyMangement/ClientDetails"));
 const ForgetPassword = lazy(() => import("./Components/Login/ForgetPassword").then(module => ({ default: module.ForgetPassword })));
 const Report = lazy(() => import("./Components/Report/Report"));
 const ReportUpload = lazy(() => import("./Components/CompanyMangement/ReportUpload"));
@@ -363,6 +364,7 @@ function App() {
         <Route path="/Dashboard" element={<ProtectedRoute allowedRoles={["Admin"]}><Dashboard /></ProtectedRoute>}></Route>
         <Route path="/CompanyManagement" element={<ProtectedRoute allowedRoles={["Admin"]}><CompanyManagement /></ProtectedRoute>}></Route>
         <Route path="/CompanyDetails" element={<ProtectedRoute allowedRoles={["Admin"]}><CompanyDetails /></ProtectedRoute>}></Route>
+        <Route path="/ClientDetails" element={<ProtectedRoute allowedRoles={["Admin"]}><ClientDetails /></ProtectedRoute>}></Route>
         <Route path="All releases" element={<ProtectedRoute allowedRoles={["Admin"]}><AllRelease /></ProtectedRoute>}></Route>
         <Route path="/all tracks" element={<ProtectedRoute allowedRoles={["Admin"]}><AllTracks /></ProtectedRoute>}></Route>
         <Route path="/main-step" element={<ProtectedRoute allowedRoles={["Admin"]}><MainStep /></ProtectedRoute>}></Route>

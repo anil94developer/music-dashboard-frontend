@@ -48,8 +48,9 @@ function AddCompany(props) {
             setLoadingMemberships(true);
             try {
                 const result = await getData(base.activeMemberships);
-                if (result.data?.status === true && Array.isArray(result.data.data)) {
-                    setMemberships(result.data.data);
+                console.log("Memberships API Response:", result); // Debugging the response
+                if (result?.status === true && Array.isArray(result.data)) {
+                    setMemberships(result.data);
                 }
             } catch (error) {
                 console.error("Error fetching memberships:", error);
@@ -104,7 +105,7 @@ function AddCompany(props) {
                 <Nav />
                 <div className="content-main">
                     <section className="page-heading">
-                        <h1>Add Company</h1>
+                        <h1>Add Label Account</h1>
                     </section>
                     <section className="content">
                         <form className="profile-form" onSubmit={handleSubmit}>
@@ -213,7 +214,10 @@ function AddCompany(props) {
                                                 required
                                             >
                                                 <option value="">Select Membership</option>
-                                                {memberships.map((membership) => (
+                                                {memberships.length === 0 && !loadingMemberships && (
+                                                    <option value="" disabled>No active memberships found</option>
+                                                )}
+                                                {memberships.length > 0 && memberships.map((membership) => (
                                                     <option key={membership._id} value={membership._id}>
                                                         {membership.name} - ${membership.price}/{membership.durationType}
                                                         {membership.noOfLabels > 0 && ` (${membership.noOfLabels} Labels)`}

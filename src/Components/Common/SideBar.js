@@ -185,7 +185,7 @@ export const SideBar = (props) => {
             </li>
             <li className="nav-item">
               <a className={`nav-link ${isCompanyManagementActive() ? 'active' : ''}`} href="/CompanyManagement">
-                <img className="img-fluid" title="Dashboard" src={require('../../assets/images/menu-icon2.png')} />Master Account
+                <img className="img-fluid" title="Dashboard" src={require('../../assets/images/menu-icon2.png')} />Label Account
               </a>
             </li>
             <li className="nav-item">
@@ -208,11 +208,11 @@ export const SideBar = (props) => {
                 <img className="img-fluid" title="Membership" src={require('../../assets/images/menu-icon4.png')} />Membership
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className={`nav-link ${isActive('/UserPlan') ? 'active' : ''}`} href="/UserPlan">
                 <img className="img-fluid" title="User Plan" src={require('../../assets/images/menu-icon4.png')} />Edit User Plan
               </a>
-            </li>
+            </li> */}
             <li className="nav-item">
               <a className={`nav-link ${isActive('/MasterArtists') ? 'active' : ''}`} href="/MasterArtists">
                 <img className="img-fluid" title="Master Artists" src={require('../../assets/images/menu-icon4.png')} />Master Artists
@@ -223,11 +223,11 @@ export const SideBar = (props) => {
                 <img className="img-fluid" title="Master Labels" src={require('../../assets/images/menu-icon4.png')} />Master Labels
               </a>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <a className="nav-link" onClick={() => downloadDatabase()}>
                 <img className="img-fluid" title="Dashboard" src={require('../../assets/images/menu-icon4.png')} />Download DB
               </a>
-            </li>
+            </li> */}
             {/* <li className="nav-item">
               <a className="nav-link" href="/Financial Report">
                 <img className="img-fluid" title="Dashboard" src={require('../../assets/images/menu-icon6.png')} />Financial Report

@@ -7,10 +7,12 @@ import MarketGraph from '../Common/Chart/MarketGraph';
 import SimpleGraph from '../Common/Chart/SimpleGraph';
 import { Nav } from '../Common/Nav'
 import { SideBar } from '../Common/SideBar'
+import { useNavigate } from 'react-router-dom'
 import '../Common/RoleSpecificStyles.css'
 export const Dashboard = () => {
   const { dashboardData } = useDashboardController();
   const { userProfile } = useUserProfile();
+  const navigate = useNavigate();
 
   const [marketList, setMarketList] = useState([])
   const [overviewDataList, setOverviewDataList] = useState([])
@@ -54,6 +56,8 @@ export const Dashboard = () => {
     return "main-cotent";
   };
 
+  const go = (path) => () => navigate(path);
+
   return (
     <div>
       <SideBar />
@@ -64,7 +68,13 @@ export const Dashboard = () => {
             {(userProfile?.role == "company" || userProfile?.role === "employee") &&
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <div className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}>
+                  <div 
+                    className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}
+                    onClick={go("/All releases")}
+                    role="button"
+                    title="View all releases"
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="inner">
                       <p>All Release</p>
                       <h3>{dashboardData?.myReleaseCount || 0}</h3>
@@ -75,7 +85,13 @@ export const Dashboard = () => {
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <div className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}>
+                  <div 
+                    className={`dash-detail d-flex flex-wrap ${userProfile?.role === "company" ? "company-dashboard-card" : "employee-dashboard-card"}`}
+                    onClick={go("/all tracks")}
+                    role="button"
+                    title="View all tracks"
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="inner">
                       <p>All Tracks</p>
                       <h3>{dashboardData?.myTracksCount || 0}</h3>
@@ -136,7 +152,13 @@ export const Dashboard = () => {
 
               <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <div className="dash-detail d-flex flex-wrap admin-dashboard-card">
+                  <div 
+                    className="dash-detail d-flex flex-wrap admin-dashboard-card"
+                    onClick={go("/All releases")}
+                    role="button"
+                    title="View all releases"
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="inner">
                       <p>All Release</p>
                       <h3>{dashboardData?.myReleaseCount || 0}</h3>
@@ -147,7 +169,13 @@ export const Dashboard = () => {
                   </div>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-6 col-12">
-                  <div className="dash-detail d-flex flex-wrap admin-dashboard-card">
+                  <div 
+                    className="dash-detail d-flex flex-wrap admin-dashboard-card"
+                    onClick={go("/all tracks")}
+                    role="button"
+                    title="View all tracks"
+                    style={{ cursor: 'pointer' }}
+                  >
                     <div className="inner">
                       <p>All Tracks</p>
                       <h3>{dashboardData?.myTracksCount || 0}</h3>

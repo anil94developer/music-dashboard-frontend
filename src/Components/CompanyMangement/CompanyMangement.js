@@ -542,7 +542,7 @@ const CompanyManagement = (props) => {
               <div className="track-heading d-flex flex-wrap align-items-center justify-content-between">
                 <h2>User Management</h2>
                 <div className="add-track-btn">
-                  <a href="AddCompany"> <button className="btn btn-primary ">Add Master Account</button></a>
+                  <a href="AddCompany"> <button className="btn btn-primary ">Add Label Account</button></a>
                 </div>
               </div>
             </div>
@@ -624,25 +624,10 @@ const CompanyManagement = (props) => {
                             <div className="company-management-actions" style={{ gap: '8px', display: 'flex', flexWrap: 'wrap' }}>
                               <button
                                 className="btn btn-sm btn-primary"
-                                onClick={() => {
-                                  navigate("/UserCompleteDetails", { state: { userId: item._id } });
-                                }}
-                                title="View User Details"
-                                style={{ backgroundColor: '#007bff', borderColor: '#007bff', color: '#fff', minWidth: '120px' }}
+                                onClick={() => navigate("/ClientDetails", { state: { userId: item._id } })}
+                                title="View Client Details"
                               >
-                                <i className="fa fa-user-circle" style={{ marginRight: '5px' }}></i>
-                                User Details
-                              </button>
-                              <button
-                                className="btn btn-sm btn-success"
-                                onClick={() => {
-                                  navigate("/UserMembershipDetails", { state: { userId: item._id } });
-                                }}
-                                title="View Membership Details"
-                                style={{ backgroundColor: '#28a745', borderColor: '#28a745', color: '#fff', minWidth: '140px' }}
-                              >
-                                <i className="fa fa-id-card" style={{ marginRight: '5px' }}></i>
-                                Membership Info
+                                <i className="fa fa-user"></i>
                               </button>
                               <button
                                 key={`${item._id}-${item.status}`}

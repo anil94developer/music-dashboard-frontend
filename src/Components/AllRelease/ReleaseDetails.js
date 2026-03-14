@@ -745,8 +745,8 @@ export const ReleaseDetails = () => {
                               <td>{ }</td>
                               <td>{ }</td>
                               <td>{item?.Composer[0]?.name}</td>
-                              <td>{item?.Author[0].name}</td>
-                              <td>{item?.Publisher[0].name}</td>
+                              <td>{item?.Author?.[0]?.name || ''}</td>
+                              <td>{item?.Publisher?.[0]?.name || ''}</td>
                               {/* Mapping over selectContributory and otherContributory */}
                               {[...(myRelease?.step3?.[0]?.selectContributory || []), ...(myRelease?.step3?.[0]?.otherContributory || [])].map((contributor) => (
                                 <td key={contributor._id}>{contributor.value}</td>
@@ -987,8 +987,8 @@ export const ReleaseDetails = () => {
                                 <td>{ }</td>
                                 <td>{ }</td>
                                 <td>{item?.Composer[0]?.name}</td>
-                                <td>{item?.Author[0].name}</td>
-                                <td>{item?.Publisher[0].name != "None" ? item?.Publisher[0].name : ""}</td>
+                                <td>{item?.Author?.[0]?.name || ''}</td>
+                                <td>{item?.Publisher?.[0]?.name && item?.Publisher?.[0]?.name !== "None" ? item?.Publisher?.[0]?.name : ""}</td>
                                 <td>None</td>
                                 <td>{ }</td>
                                 <td>{ }</td>

@@ -70,7 +70,7 @@ export default function Support() {
                         <option value="Financial report">Financial report</option>
                         <option value="Payment request">Payment request</option>
                         <option value="Other requests">Other requests</option>
-                        <option value="Backstage account login issue">Backstage account login issue</option>
+                        <option value="account login issue">account login issue</option>
                       </select>
                     </div>
                   </div>
