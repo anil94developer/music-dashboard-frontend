@@ -114,12 +114,24 @@ export const Dashboard = () => {
       Swal.fire({ icon: 'error', title: 'Error', text: 'User not found. Please login again.' });
       return;
     }
+    const phone = userProfile?.phoneNumber || (userProfile?.phone != null && userProfile?.phone !== '' ? String(userProfile.phone) : '');
+    if (!phone || phone.trim() === '') {
+      Swal.fire({ icon: 'warning', title: 'Phone required', text: 'Phone number is required for payment. Please add your phone number in Profile and try again.' });
+      return;
+    }
     setIsProcessingPayment(true);
     try {
+      const price = memberships.find(m => (m._id || m.id) === selectedMembershipId)?.price || 0;
       const paymentOrderBody = {
         userId,
         membershipId: selectedMembershipId,
-        amount: memberships.find(m => (m._id || m.id) === selectedMembershipId)?.price || 0
+        amount: price,
+        companyData: {
+          firstName: userProfile?.firstName || (userProfile?.name && userProfile.name.split(' ')[0]) || '',
+          lastName: userProfile?.lastName || (userProfile?.name && userProfile.name.split(' ').slice(1).join(' ')) || '',
+          email: userProfile?.email || '',
+          phoneNumber: phone.trim()
+        }
       };
       Swal.fire({ icon: 'info', title: 'Processing...', text: 'Redirecting to payment.', allowOutsideClick: false, showConfirmButton: false, didOpen: () => Swal.showLoading() });
       const paymentResult = await postData(base.createPaymentOrder, paymentOrderBody);
