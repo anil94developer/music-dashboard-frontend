@@ -7,9 +7,10 @@ import GENRES from '../../Enums/genres.json';
 import { images } from '../../assets/images';
 import { base, domainUrl } from '../../Constants/Data.constant';
 import Loader from '../Common/Loader';
+import {encode as btoa} from 'base-64'
 import { useUserProfile } from '../../Context/UserProfileContext';
 export default function STEP1(props) {
-  const { setStep, releaseData , validateFields , setErrors } = props;
+  const { setStep, releaseData, validateFields, setErrors } = props;
   const { userPermission, userProfile } = useUserProfile()
   const { releaseTitle, setReleaseTitle,
     versionSubtitle, setVersionSubtitle,
@@ -77,6 +78,28 @@ export default function STEP1(props) {
   const endYear = 2026;
   // Generate an array of years
   const years = Array.from({ length: endYear - startYear + 1 }, (_, i) => endYear - i);
+
+  useEffect(() => {
+    getSpotifyToken()
+  }, [])
+  async function getSpotifyToken() {
+    console.log("getSpotifyToken=====")
+    let CLIENT_ID = "e309076728c74648ab9a949cc80d023e"
+    let CLIENT_SECRET = "c0ad875dd94444febca27b53fef21fb2"
+    const response = await fetch('https://accounts.spotify.com/api/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'Authorization': 'Basic ' + btoa(CLIENT_ID + ':' + CLIENT_SECRET)
+      },
+      body: 'grant_type=client_credentials'
+    });
+    const data = await response.json();
+    console.log("getSpotifyToken=====1234", data.access_token)
+    return data.access_token;
+
+  }
+
   return (
     <div>
       <div className="tab-heading">
@@ -176,8 +199,8 @@ export default function STEP1(props) {
             </div>
           </div>
           {props.errors?.['step1.coverImage'] && (
-              <span className="text-danger">{props.errors['step1.coverImage']}</span>
-            )}
+            <span className="text-danger">{props.errors['step1.coverImage']}</span>
+          )}
         </div>
       </div>
       <div className="row">
@@ -213,18 +236,18 @@ export default function STEP1(props) {
         <div className="col-lg-3 col-md-6 col-12">
           <div className="form-group">
             <label htmlFor="primaryArtist">Primary artist *</label>
-            <SearchInput 
-              artistData={primaryArtist} 
-              setSelectData={setPrimaryArtist} 
+            <SearchInput
+              artistData={primaryArtist}
+              setSelectData={setPrimaryArtist}
               maxSelected={
                 (userProfile?.activeMembership?.noOfArtists ?? userProfile?.noOfArtists ?? 0) || undefined
               }
             />
             {props.errors?.['step1.primaryArtist'] ? (
               <span className="text-danger">{props.errors['step1.primaryArtist']}</span>
-              ):
+            ) :
               <></>
-              }
+            }
           </div>
         </div>
         <div className="col-lg-3 col-md-6 col-12">
@@ -290,13 +313,13 @@ export default function STEP1(props) {
         <div className="col-lg-3 col-md-6 col-12">
           <div className="form-group">
             <label htmlFor="labelName">Label name <span className="required-star">*</span></label>
-            <LabelSelector 
-              selectedLabel={labelName} 
-              setSelectedLabel={setLabelName} 
+            <LabelSelector
+              selectedLabel={labelName}
+              setSelectedLabel={setLabelName}
             />
             {props.errors?.['step1.labelName'] ? (
               <span className="text-danger">{props.errors['step1.labelName']}</span>
-            ): <></>}
+            ) : <></>}
           </div>
         </div>
         <div className="col-lg-3 col-md-6 col-12">
@@ -436,8 +459,8 @@ export default function STEP1(props) {
             />
           </div>
           {props.errors?.['step1.UPCEAN'] && (
-              <span className="text-danger">{props.errors['step1.UPCEAN']}</span>
-            )}
+            <span className="text-danger">{props.errors['step1.UPCEAN']}</span>
+          )}
         </div>
         <div className="col-lg-3 col-md-6 col-12">
           <div className="form-group">
@@ -458,7 +481,7 @@ export default function STEP1(props) {
         </div>
         <div className="col-12">
           {loader ? <Loader /> :
-            <button onClick={() =>{ setErrors?.([]); handleSubmit();}} className="btn btn-primary" type="Submit">Save</button>
+            <button onClick={() => { setErrors?.([]); handleSubmit(); }} className="btn btn-primary" type="Submit">Save</button>
           }
         </div>
       </div>
